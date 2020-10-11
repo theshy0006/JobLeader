@@ -36,10 +36,23 @@
     <string name="home_workspace">工作台</string>
     <string name="home_message">消息</string>
     <string name="home_mine">我的</string>
-    <string name="explain">客服电话 088-065-6688   工作时间 9:00-18:00</string>
+    <string name="explain">客服电话 088-065-6688      工作时间 9:00-18:00</string>
     <string name="authentication">资质认证</string>
     <string name="organization">我的组织</string>
     <string name="feedback">帮助反馈</string>
     <string name="aboutme">关于我的</string>
+    <string name="set">设置</string>
+
+    <string name="clearContent">清除缓存</string>
+    <string name="personal">个人资料</string>
+    <string name="account">账号与绑定</string>
+    <string name="notification">通知设置</string>
+    <string name="privacy">隐私设置</string>
+    <string name="callSet">打招呼设置</string>
+    <string name="logout">退出登录</string>
+    <string name="name">姓名</string>
+    <string name="sex">性别</string>
+    <string name="brithday">生日</string>
+
 
 </resources>

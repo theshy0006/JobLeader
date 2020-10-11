@@ -14,6 +14,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -36,5 +41,9 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
     // 引入底部tabbar
     implementation 'com.google.android.material:material:1.1.0'
+    // 标题栏
+    implementation 'com.hjq:titlebar:8.0'
+    // 吐司
+    implementation 'com.hjq:toast:8.8'
 
 }

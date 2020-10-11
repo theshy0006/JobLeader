@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".module.mine.set.SettingActivity">
+
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/commonTitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/set" />
+
+    <com.boc.jobleader.custom.SettingBar
+        android:id="@+id/personal"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:bar_leftText="@string/personal"
+        app:bar_rightIcon="@mipmap/icon_arrow_right" />
+
+    <com.boc.jobleader.custom.SettingBar
+        android:id="@+id/account"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:bar_leftText="@string/account"
+        app:bar_rightIcon="@mipmap/icon_arrow_right" />
+
+    <com.boc.jobleader.custom.SettingBar
+        android:id="@+id/notification"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:bar_leftText="@string/notification"
+        app:bar_rightIcon="@mipmap/icon_arrow_right" />
+
+    <com.boc.jobleader.custom.SettingBar
+        android:id="@+id/privacy"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:bar_leftText="@string/privacy"
+        app:bar_rightIcon="@mipmap/icon_arrow_right" />
+
+    <com.boc.jobleader.custom.SettingBar
+        android:id="@+id/callSet"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:bar_leftText="@string/callSet"
+        app:bar_rightIcon="@mipmap/icon_arrow_right" />
+
+    <com.boc.jobleader.custom.SettingBar
+        android:id="@+id/clearContent"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:bar_leftText="@string/clearContent"
+        app:bar_rightIcon="@mipmap/icon_arrow_right" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_width="match_parent"
+        android:background="#F6F7F8"
+        android:layout_height="42dp"
+        android:text="@string/logout" />
+
+</LinearLayout>

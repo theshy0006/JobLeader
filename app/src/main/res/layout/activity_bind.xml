@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".module.mine.bind.BindActivity">
+
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/commonTitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/account" />
+
+    <com.boc.jobleader.custom.SettingBar
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:bar_leftText="修改密码"
+        app:bar_rightText="去修改"
+        app:bar_rightIcon="@mipmap/icon_arrow_right" />
+
+    <com.boc.jobleader.custom.SettingBar
+        android:id="@+id/sex"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:bar_leftText="修改手机号"
+        app:bar_rightText="135****6789"
+        app:bar_rightIcon="@mipmap/icon_arrow_right" />
+
+    <com.boc.jobleader.custom.SettingBar
+        android:id="@+id/brithday"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:bar_leftText="绑定微信"
+        app:bar_rightText="已绑定"
+        app:bar_rightIcon="@mipmap/icon_arrow_right" />
+
+
+</LinearLayout>

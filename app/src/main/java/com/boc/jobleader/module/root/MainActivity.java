@@ -22,6 +22,7 @@ import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener,
         BottomNavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +45,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     protected void initData() {
         super.initData();
+
+        ButterKnife.bind(this);
         mFragments = new ArrayList<>();
         HomeFragment homeFragment = new HomeFragment();
         JobFragment jobFragment = new JobFragment();
@@ -69,12 +72,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mViewPager.setOffscreenPageLimit(myAdapter.getCount());
         mViewPager.addOnPageChangeListener(this);
     }
-
-    @Override
-    protected void initImmersionBar() {
-        super.initImmersionBar();
-        ImmersionBar.with(this).navigationBarColor(R.color.colorPrimary).init();
-        }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

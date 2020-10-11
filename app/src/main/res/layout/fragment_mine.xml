@@ -38,10 +38,9 @@
                     android:id="@+id/topItem"
                     android:layout_width="match_parent"
                     android:layout_height="88dp"
+                    android:background="@drawable/bg_white_shape"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
-
-                    android:background="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
@@ -343,7 +342,7 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView3" />
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/settingButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
@@ -361,7 +360,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
-                android:background="#ffffff"
+                android:background="@drawable/bg_white_shape"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/topView">
@@ -663,7 +662,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
-                android:background="#ffffff"
+                android:background="@drawable/bg_white_shape"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -717,6 +716,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:text="@string/explain"
+                    android:textColor="#CCCCCC"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
