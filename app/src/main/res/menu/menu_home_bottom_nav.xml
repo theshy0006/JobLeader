@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/selector_home"
+        android:title="@string/home_home"/>
+
+    <item
+        android:id="@+id/menu_job"
+        android:icon="@drawable/selector_job"
+        android:title="@string/home_job" />
+
+    <item
+        android:id="@+id/menu_workspace"
+        android:icon="@drawable/selector_workspace"
+        android:title="@string/home_workspace" />
+
+    <item
+        android:id="@+id/menu_message"
+        android:icon="@drawable/selector_message"
+        android:title="@string/home_message" />
+
+    <item
+        android:id="@+id/menu_mine"
+        android:icon="@drawable/selector_mine"
+        android:title="@string/home_mine"/>
+
+</menu>
