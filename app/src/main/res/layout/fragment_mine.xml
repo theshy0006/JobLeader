@@ -199,6 +199,17 @@
                                 android:background="@color/white">
 
                                 <ImageView
+                                    android:id="@+id/imageView7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_marginBottom="1dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@mipmap/shage" />
+
+                                <ImageView
                                     android:layout_width="33dp"
                                     android:layout_height="33dp"
                                     android:layout_marginTop="1dp"
@@ -241,7 +252,7 @@
 
                 <View
                     android:id="@+id/whiteLine"
-                    android:layout_width="1dp"
+                    android:layout_width="0.5dp"
                     android:layout_height="32dp"
                     android:layout_marginBottom="18dp"
                     android:background="#FFFFFF"

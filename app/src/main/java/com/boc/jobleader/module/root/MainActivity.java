@@ -1,7 +1,12 @@
 package com.boc.jobleader.module.root;
 
+import com.boc.jobleader.BuildConfig;
 import com.boc.jobleader.R;
+
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -71,6 +76,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mViewPager.setAdapter(myAdapter);
         mViewPager.setOffscreenPageLimit(myAdapter.getCount());
         mViewPager.addOnPageChangeListener(this);
+        mViewPager.setCurrentItem(4);
     }
 
     @Override

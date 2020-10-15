@@ -2,9 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 按压状态 -->
-    <item android:drawable="@mipmap/tab_home_current" android:state_checked="true" />
+    <item android:drawable="@mipmap/icon_tab_home_color" android:state_checked="true" />
 
     <!-- 默认状态 -->
-    <item android:drawable="@mipmap/tab_home" />
+    <item android:drawable="@mipmap/icon_tab_home_gray" />
 
 </selector>

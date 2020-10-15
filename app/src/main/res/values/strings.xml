@@ -40,7 +40,7 @@
     <string name="authentication">资质认证</string>
     <string name="organization">我的组织</string>
     <string name="feedback">帮助反馈</string>
-    <string name="aboutme">关于我的</string>
+    <string name="aboutme">关于我们</string>
     <string name="set">设置</string>
 
     <string name="clearContent">清除缓存</string>
@@ -53,6 +53,23 @@
     <string name="name">姓名</string>
     <string name="sex">性别</string>
     <string name="brithday">生日</string>
+    <string name="companyAuth">企业认证</string>
+    <string name="assessAuth">评估师认证</string>
+    <string name="companyAuthExplain">完成营业执照认证后可发布职位</string>
+    <string name="assessAuthExplain">完成资格认证可评估简历</string>
+    <string name="auditAuth">审核认证信息</string>>
 
+    <string name="changeMobile">修改手机号码</string>
+    <string name="phoneTag">+86</string>
+    <string name="verify">验证码</string>
+    <string name="sureChangeButton">确认修改手机号码</string>
+    <string name="currentMobile">当前手机号</string>
+
+    <string name="versionUpdate">版本更新</string>
+    <string name="privacyPolicy">隐私政策</string>
+    <string name="useragreement">用户协议</string>
+
+
+    authentication
 
 </resources>

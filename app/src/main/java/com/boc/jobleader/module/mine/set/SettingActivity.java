@@ -1,11 +1,7 @@
 package com.boc.jobleader.module.mine.set;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.boc.jobleader.R;
 import com.boc.jobleader.base.BaseActivity;
@@ -23,7 +19,7 @@ public class SettingActivity extends BaseActivity {
     @BindView(R.id.commonTitleBar)
     TitleBar mTitleBar;
 
-    @BindView(R.id.personal)
+    @BindView(R.id.jobsearchView)
     SettingBar personalBar;
 
     @BindView(R.id.account)
@@ -63,10 +59,10 @@ public class SettingActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.personal, R.id.account})
+    @OnClick({R.id.jobsearchView, R.id.account})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.personal:
+            case R.id.jobsearchView:
                 startActivity(new Intent(this, PersonalActivity.class));
                 break;
             case R.id.account:

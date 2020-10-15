@@ -18,7 +18,7 @@
         app:title="@string/set" />
 
     <com.boc.jobleader.custom.SettingBar
-        android:id="@+id/personal"
+        android:id="@+id/jobsearchView"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:bar_leftText="@string/personal"

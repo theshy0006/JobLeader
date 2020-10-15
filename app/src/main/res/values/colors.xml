@@ -6,7 +6,7 @@
     <color name="tans">#00000000</color>
     <color name="colorBarText">#F0F5E5</color>
 
-    <color name="tabbarFontSelectColor">#F52857</color>
+    <color name="tabbarFontSelectColor">#3AA7FF</color>
     <color name="tabbarFontNormalColor">#8a8a8a</color>
 
     <color name="orderTextColor">#c0787f</color>
@@ -15,6 +15,20 @@
     <color name="deeppink">#FF1493</color>
     <color name="text_channel_color_red_day">#d83b36</color>
     <color name="orchid">#DA70D6</color>
+
+    <!-- 按钮按压时的颜色 -->
+    <color name="colorButtonPressed">#AA5A8DDF</color>
+    <!-- 按钮禁用时的颜色 -->
+    <color name="colorButtonDisable">#BBBBBB</color>
+    <!-- 分割线的颜色 -->
+    <color name="colorLine">#ECECEC</color>
+    <!-- 图标颜色 -->
+    <color name="colorIcon">#7C7C7C</color>
+
+    <!-- 对话框确认按钮文本颜色 -->
+    <color name="colorConfirm">#007AFF</color>
+    <!-- 对话框取消按钮文本颜色 -->
+    <color name="colorCancel">#F44336</color>
 
     <!-- 透明色 -->
     <color name="transparent">#00000000</color>
