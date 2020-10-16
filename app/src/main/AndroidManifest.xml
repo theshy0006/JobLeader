@@ -23,13 +23,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".module.mine.changemobile.ChangeMobileActivity"></activity>
+        <activity android:name=".module.mine.password.PasswordActivity"></activity>
+        <activity android:name=".module.forget.ForgetActivity" />
+        <activity android:name=".module.mine.changemobile.ChangeMobileActivity" />
         <activity android:name=".module.mine.audit.AuditActivity" />
         <activity android:name=".module.mine.assess.AssessAuthActivity" />
         <activity android:name=".module.mine.authstatus.AuthStatusActivity" />
         <activity android:name=".module.mine.company.CompanyAuthActivity" />
         <activity android:name=".module.register.RegisterActivity" />
-        <activity android:name=".module.login.LoginActivity" />
+        <activity android:name=".module.login.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".module.mine.help.HelpActivity" />
         <activity android:name=".module.mine.aboutme.AboutmeActivity" />
         <activity android:name=".module.mine.authentication.AuthenticationActivity" />

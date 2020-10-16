@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".module.register.RegisterActivity">
+    tools:context=".module.forget.ForgetActivity">
 
     <ImageView
         android:id="@+id/bg"
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="注册"
+        android:text="忘记密码"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -50,18 +50,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerMode">
-
-        <TextView
-            android:id="@+id/forget2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="6dp"
-            android:text="《隐私政策及服务协议》"
-            android:textColor="#3AA7FF"
-            android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/forget"
-            app:layout_constraintTop_toBottomOf="@+id/verifyloginView" />
 
         <ImageView
             android:id="@+id/logo"
@@ -160,10 +148,6 @@
                 android:singleLine="true"
                 android:textSize="14sp" />
 
-            <View
-                style="@style/HorizontalLineStyle"
-                android:layout_marginHorizontal="1dp" />
-
 
         </LinearLayout>
 
@@ -173,35 +157,13 @@
             android:layout_height="40dp"
             android:layout_marginTop="33dp"
             android:background="@drawable/bg_blue_radius_5_shape"
-            android:text="注册"
+            android:text="确定"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/verifyloginView" />
-
-        <TextView
-            android:id="@+id/forget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="6dp"
-            android:text="点击注册即表示您同意"
-            android:textColor="#999999"
-            android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView9"
-            app:layout_constraintTop_toBottomOf="@+id/verifyloginView" />
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/verifyloginView"
-            app:srcCompat="@mipmap/check" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

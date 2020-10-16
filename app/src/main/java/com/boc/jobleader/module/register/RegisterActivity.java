@@ -35,7 +35,7 @@ public class RegisterActivity extends BaseActivity {
         super.initView();
     }
 
-    @OnClick({R.id.register, R.id.back})
+    @OnClick({R.id.back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:

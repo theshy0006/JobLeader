@@ -10,10 +10,41 @@
     <com.hjq.bar.TitleBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="@string/changeMobile" />
+        app:title="@string/changeMobile" >
+
+    </com.hjq.bar.TitleBar>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="143dp">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="当前手机号"
+            android:textColor="#999999"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="199****5555"
+            android:textColor="#151515"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.boc.jobleader.custom.RegexEditText
-        android:id="@+id/et_password_forget_phone"
+        android:id="@+id/verifyPhoneInput"
         style="@style/EditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +52,7 @@
         android:background="@color/white"
         android:drawableStart="@drawable/phone_ic"
         android:drawablePadding="15dp"
-        android:hint="@string/common_phone_input_hint"
+        android:hint="@string/inputNewPhone"
         android:inputType="number"
         android:paddingHorizontal="20dp"
         android:paddingVertical="18dp"
@@ -39,7 +70,7 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_password_forget_code"
+            android:id="@+id/veryfyCodeInput"
             style="@style/EditTextStyle"
             android:layout_width="0px"
             android:layout_height="wrap_content"
@@ -47,26 +78,29 @@
             android:background="@color/white"
             android:drawableStart="@drawable/safe_ic"
             android:drawablePadding="15dp"
-            android:hint="@string/common_code_input_hint"
+            android:hint="@string/inputVeryfy"
             android:inputType="number"
             android:maxLength="@integer/sms_code_length"
             android:paddingHorizontal="20dp"
             android:paddingVertical="18dp"
             android:singleLine="true" />
 
-        <com.hjq.widget.view.CountdownView
+        <com.boc.jobleader.custom.CountdownView
             android:id="@+id/cv_password_forget_countdown"
             style="@style/CountdownViewStyle" />
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_password_forget_commit"
-        style="@style/ButtonStyle"
+    <Button
+        android:id="@+id/okButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginVertical="30dp"
-        android:text="@string/common_step_next" />
+        android:layout_height="42dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="48dp"
+        android:background="#3AA7FF"
+        android:text="@string/sureChangeButton"
+        android:textColor="#FFFFFF" />
+
 
 </LinearLayout>

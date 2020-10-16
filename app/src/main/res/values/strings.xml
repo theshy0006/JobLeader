@@ -64,6 +64,10 @@
     <string name="verify">验证码</string>
     <string name="sureChangeButton">确认修改手机号码</string>
     <string name="currentMobile">当前手机号</string>
+    <string name="inputNewPhone">输入新手机号</string>
+    <string name="inputVeryfy">输入验证码</string>
+    <string name="getVeryfy">获取验证码</string>
+
 
     <string name="versionUpdate">版本更新</string>
     <string name="privacyPolicy">隐私政策</string>

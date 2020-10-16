@@ -43,7 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
-        android:alpha="0.7"
         android:text="密码登录"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -59,7 +58,7 @@
         android:text="短信登录"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/passwordMode"
         app:layout_constraintStart_toEndOf="@+id/view4"
         app:layout_constraintTop_toTopOf="@+id/passwordMode" />
@@ -100,17 +99,133 @@
             app:srcCompat="@mipmap/smalllogo" />
 
         <LinearLayout
-            android:id="@+id/loginView"
+            android:id="@+id/passwordloginView"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
+            android:background="@color/white"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logo">
 
+
+            <com.boc.jobleader.custom.RegexEditText
+                android:id="@+id/passwordPhoneInput"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:drawableStart="@mipmap/phoneicon"
+                android:drawablePadding="15dp"
+                android:hint="请输入手机号码"
+                android:inputType="number"
+                android:paddingHorizontal="20dp"
+                android:singleLine="true"
+                android:textSize="14sp"
+                app:regexType="mobile" />
+
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="1dp" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/passwordCodeInput"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:drawableStart="@mipmap/password"
+                android:drawablePadding="15dp"
+                android:hint="请输入密码"
+                android:inputType="number"
+                android:maxLength="@integer/sms_code_length"
+                android:paddingHorizontal="20dp"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="1dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/verifyloginView"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo">
+
+
+            <com.boc.jobleader.custom.RegexEditText
+                android:id="@+id/verifyPhoneInput"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:drawableStart="@mipmap/phoneicon"
+                android:drawablePadding="15dp"
+                android:hint="请输入手机号码"
+                android:inputType="number"
+                android:paddingHorizontal="20dp"
+                android:singleLine="true"
+                android:textSize="14sp"
+                app:regexType="mobile" />
+
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="1dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_phone_reset_code"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:drawableStart="@mipmap/password"
+                    android:drawablePadding="15dp"
+                    android:hint="请输入手机验证码"
+                    android:textSize="14sp"
+                    android:inputType="number"
+                    android:maxLength="@integer/sms_code_length"
+                    android:paddingHorizontal="20dp"
+                    android:singleLine="true" />
+
+                <com.boc.jobleader.custom.CountdownView
+                    android:id="@+id/cv_phone_reset_countdown"
+                    style="@style/CountdownViewStyle" />
+
+            </LinearLayout>
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="1dp" />
         </LinearLayout>
 
         <Button
@@ -118,14 +233,14 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_marginTop="33dp"
-            android:background="#3AA7FF"
+            android:background="@drawable/bg_blue_radius_5_shape"
             android:text="登录"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginView" />
+            app:layout_constraintTop_toBottomOf="@+id/verifyloginView" />
 
         <TextView
             android:id="@+id/forget"

@@ -15,7 +15,7 @@ import android.view.View;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
-import com.hjq.widget.R;
+import com.boc.jobleader.R;
 
 /**
  *    author : Android 轮子哥
