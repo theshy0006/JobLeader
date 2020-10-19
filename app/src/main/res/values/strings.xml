@@ -1,30 +1,35 @@
 <resources>
     <string name="app_name">职霸</string>
-    <string name="text_params">Bar相关参数信息</string>
-    <string name="text_params_kotlin">Bar相关参数信息(kotlin)</string>
-    <string name="text_pic_color">图片状态栏 + 彩色导航栏</string>
-    <string name="text_pic">全屏图片</string>
-    <string name="text_color">彩色状态栏 + 彩色导航栏</string>
-    <string name="text_shape">仿QQ状态栏和标题栏渐变色</string>
-    <string name="text_swipe_back">结合侧滑返回使用</string>
-    <string name="text_fragment">结合fragment使用</string>
-    <string name="text_dialog">结合Dialog使用</string>
-    <string name="text_popup">结合PopupWindow使用</string>
-    <string name="text_drawer">结合侧边栏使用</string>
-    <string name="text_coordinator">结合CoordinatorLayout使用</string>
-    <string name="text_tab">结合TabLayout使用</string>
-    <string name="text_tab_two">结合TabLayout使用(二)</string>
-    <string name="text_web">结合WebView使用</string>
-    <string name="text_action_bar">结合ActionBar使用</string>
-    <string name="text_flyme">修改Flyme OS状态栏字体颜色</string>
-    <string name="text_over">解决布局顶部和状态栏重叠问题</string>
-    <string name="text_key_board">解决EditText和软键盘的问题</string>
-    <string name="text_all_edit">界面全是EditText</string>
-    <string name="text_login">登录界面</string>
-    <string name="text_white_bar">解决白色状态栏问题</string>
-    <string name="text_auto_status_font">自动根据状态栏颜色调整字体</string>
-    <string name="text_status_hide">隐藏状态栏</string>
-    <string name="text_navigation_hide">隐藏导航栏</string>
+    <string name="http_unknown_error">请求出错，未知错误</string>
+    <string name="http_account_error">账号异常，请重新登录</string>
+    <string name="http_data_explain_error">数据解析异常，请稍后</string>
+    <string name="http_server_out_time">服务器请求超时，请稍后再试</string>
+    <string name="http_network_error">请求失败，请检查网络设置</string>
+    <string name="http_response_error">服务器响应异常，请稍后再试</string>
+    <string name="http_server_error">服务器连接异常，请稍后再试</string>
+    <string name="http_request_cancel">请求被中断，请重试</string>
+
+    <!-- 提示布局 -->
+    <string name="hint_layout_no_data">空空如也</string>
+    <string name="hint_layout_error_request">请求出错，点击重试</string>
+    <string name="hint_layout_error_network">网络错误，点击重试</string>
+
+
+    <string name="common_phone_input_hint">输入手机号码</string>
+    <string name="common_phone_input_error">手机号输入不正确</string>
+
+    <string name="common_password_input_error">请输入密码</string>
+    <string name="common_password_input_unlike">两次密码输入不一致，请重新输入</string>
+
+    <string name="common_code_input_hint">输入验证码</string>
+    <string name="common_code_send">发送验证码</string>
+    <string name="common_code_send_hint">验证码已发送，请注意查收</string>
+    <string name="common_code_error_hint">验证码错误，请检查输入</string>
+    <string name="register_succeed">注册成功</string>
+    <string name="common_step_next">下一步</string>
+    <string name="common_step_complete">完成</string>
+    <string name="common_step_commit">提交</string>
+
     <string name="text_bar_hide">隐藏全部</string>
     <string name="text_bar_show">恢复显示</string>
     <string name="text_scanner">扫一扫</string>
@@ -67,7 +72,7 @@
     <string name="inputNewPhone">输入新手机号</string>
     <string name="inputVeryfy">输入验证码</string>
     <string name="getVeryfy">获取验证码</string>
-
+    <string name="common_loading">加载中&#8230;</string>
 
     <string name="versionUpdate">版本更新</string>
     <string name="privacyPolicy">隐私政策</string>

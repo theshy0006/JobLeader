@@ -16,16 +16,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/mengban" />
 
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="12dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="34dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/icon_back" />
-
     <View
         android:id="@+id/view4"
         android:layout_width="1dp"
@@ -42,26 +32,27 @@
         android:id="@+id/passwordMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
         android:text="密码登录"
         android:textColor="#FFFFFF"
+        android:layout_marginEnd="30dp"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/back"
+        app:layout_constraintBottom_toBottomOf="@+id/messageMode"
+        app:layout_constraintTop_toTopOf="@+id/messageMode"
         app:layout_constraintEnd_toStartOf="@+id/view4"
-        app:layout_constraintTop_toTopOf="@+id/back" />
+        tools:layout_editor_absoluteX="111dp" />
 
     <TextView
         android:id="@+id/messageMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
         android:text="短信登录"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/passwordMode"
         app:layout_constraintStart_toEndOf="@+id/view4"
-        app:layout_constraintTop_toTopOf="@+id/passwordMode" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/centerView"
@@ -134,7 +125,7 @@
                 style="@style/HorizontalLineStyle"
                 android:layout_marginHorizontal="1dp" />
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <com.boc.jobleader.custom.PasswordEditText
                 android:id="@+id/passwordCodeInput"
                 style="@style/EditTextStyle"
                 android:layout_width="match_parent"
@@ -146,11 +137,11 @@
                 android:drawableStart="@mipmap/password"
                 android:drawablePadding="15dp"
                 android:hint="请输入密码"
-                android:inputType="number"
-                android:maxLength="@integer/sms_code_length"
+                android:maxLength="@integer/password_length"
                 android:paddingHorizontal="20dp"
                 android:singleLine="true"
                 android:textSize="14sp" />
+
 
             <View
                 style="@style/HorizontalLineStyle"
@@ -209,20 +200,21 @@
                     android:layout_marginStart="15dp"
                     android:layout_weight="1"
                     android:background="@color/white"
-                    android:drawableStart="@mipmap/password"
+                    android:drawableStart="@mipmap/icon_yanzm"
                     android:drawablePadding="15dp"
                     android:hint="请输入手机验证码"
-                    android:textSize="14sp"
                     android:inputType="number"
                     android:maxLength="@integer/sms_code_length"
                     android:paddingHorizontal="20dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textSize="14sp" />
 
                 <com.boc.jobleader.custom.CountdownView
                     android:id="@+id/cv_phone_reset_countdown"
                     style="@style/CountdownViewStyle" />
 
             </LinearLayout>
+
             <View
                 style="@style/HorizontalLineStyle"
                 android:layout_marginHorizontal="1dp" />

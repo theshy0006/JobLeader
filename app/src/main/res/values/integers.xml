@@ -4,7 +4,8 @@
     <integer name="activity_anim_duration">200</integer>
 
     <!-- 短信验证码的长度 -->
-    <integer name="sms_code_length">4</integer>
+    <integer name="sms_code_length">6</integer>
+    <integer name="password_length">16</integer>
 
     <integer name="anim_duration_medium">300</integer>
     <integer name="anim_duration_long">400</integer>

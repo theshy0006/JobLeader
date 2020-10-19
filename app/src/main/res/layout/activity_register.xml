@@ -60,7 +60,7 @@
             android:text="《隐私政策及服务协议》"
             android:textColor="#3AA7FF"
             android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/forget"
+            app:layout_constraintStart_toEndOf="@+id/agreeLabel"
             app:layout_constraintTop_toBottomOf="@+id/verifyloginView" />
 
         <ImageView
@@ -124,7 +124,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_weight="1"
                     android:background="@color/white"
-                    android:drawableStart="@mipmap/password"
+                    android:drawableStart="@mipmap/icon_yanzm"
                     android:drawablePadding="15dp"
                     android:hint="请输入手机验证码"
                     android:inputType="number"
@@ -142,7 +142,25 @@
                 style="@style/HorizontalLineStyle"
                 android:layout_marginHorizontal="1dp" />
 
-            <androidx.appcompat.widget.AppCompatEditText
+<!--            <androidx.appcompat.widget.AppCompatEditText-->
+<!--                android:id="@+id/passwordCodeInput"-->
+<!--                style="@style/EditTextStyle"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@color/white"-->
+<!--                android:drawableStart="@mipmap/password"-->
+<!--                android:drawablePadding="15dp"-->
+<!--                android:hint="请输入密码"-->
+<!--                android:inputType="number"-->
+<!--                android:maxLength="@integer/password_length"-->
+<!--                android:paddingHorizontal="20dp"-->
+<!--                android:singleLine="true"-->
+<!--                android:textSize="14sp" />-->
+
+            <com.boc.jobleader.custom.PasswordEditText
                 android:id="@+id/passwordCodeInput"
                 style="@style/EditTextStyle"
                 android:layout_width="match_parent"
@@ -154,11 +172,15 @@
                 android:drawableStart="@mipmap/password"
                 android:drawablePadding="15dp"
                 android:hint="请输入密码"
-                android:inputType="number"
-                android:maxLength="@integer/sms_code_length"
+                android:maxLength="@integer/password_length"
                 android:paddingHorizontal="20dp"
                 android:singleLine="true"
                 android:textSize="14sp" />
+
+
+
+
+
 
             <View
                 style="@style/HorizontalLineStyle"
@@ -168,7 +190,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/registerButton"
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_marginTop="33dp"
@@ -182,7 +204,7 @@
             app:layout_constraintTop_toBottomOf="@+id/verifyloginView" />
 
         <TextView
-            android:id="@+id/forget"
+            android:id="@+id/agreeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
@@ -190,11 +212,11 @@
             android:text="点击注册即表示您同意"
             android:textColor="#999999"
             android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView9"
+            app:layout_constraintStart_toEndOf="@+id/checkImage"
             app:layout_constraintTop_toBottomOf="@+id/verifyloginView" />
 
         <ImageView
-            android:id="@+id/imageView9"
+            android:id="@+id/checkImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
