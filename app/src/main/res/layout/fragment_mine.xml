@@ -240,7 +240,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageView3"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -248,7 +248,9 @@
                     android:layout_marginBottom="68dp"
                     app:layout_constraintBottom_toTopOf="@+id/topItem"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@mipmap/default_headimage" />
+                    android:scaleType="centerCrop"
+                    tools:src="@mipmap/default_headimage" />
+
 
                 <View
                     android:id="@+id/whiteLine"
@@ -341,7 +343,7 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView3" />
 
                 <TextView
-                    android:id="@+id/textView10"
+                    android:id="@+id/userName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"

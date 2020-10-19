@@ -3,6 +3,7 @@ package com.boc.jobleader.module.root;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -52,11 +53,27 @@ public final class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
+
+            SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+            String token =  settings.getString("token", "").toString();
+            String appAccessToken =  settings.getString("appAccessToken", "").toString();
+
+            if (token.length() != 0 && appAccessToken.length() != 0) {
+                EasyConfig.getInstance().addParam("token", token);
+                EasyConfig.getInstance().addHeader("token", token);
+                EasyConfig.getInstance().addParam("appAccessToken", appAccessToken);
+
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
-
-
                 finish();
+            }
+
+
+
             }
         });
     }

@@ -1,19 +1,25 @@
 package com.boc.jobleader.module.mine;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.viewpager.widget.ViewPager;
 
 import com.boc.jobleader.R;
 import com.boc.jobleader.base.BaseFragment;
 import com.boc.jobleader.custom.SettingBar;
+import com.boc.jobleader.http.glide.GlideApp;
 import com.boc.jobleader.module.mine.aboutme.AboutmeActivity;
 import com.boc.jobleader.module.mine.authentication.AuthenticationActivity;
 import com.boc.jobleader.module.mine.help.HelpActivity;
 import com.boc.jobleader.module.mine.set.SettingActivity;
 import com.boc.jobleader.module.root.MainActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +33,12 @@ public class MineFragment extends BaseFragment {
     @BindView(R.id.sb_setting_authentication)
     SettingBar setBar;
 
+    @BindView(R.id.userName)
+    TextView userName;
+
+    @BindView(R.id.imageView3)
+    ImageView mAvatarView;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_mine;
@@ -36,6 +48,16 @@ public class MineFragment extends BaseFragment {
     protected void initView() {
         super.initView();
         // 不使用图标默认变色
+
+        SharedPreferences settings = getActivity().getSharedPreferences("UserInfo", 0);
+        String nickname =  settings.getString("nickname", "").toString();
+        String avator =  settings.getString("avator", "").toString();
+        userName.setText(nickname);
+
+        Glide.with(this)
+                .load(avator)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .into(mAvatarView);
     }
 
     @OnClick({R.id.settingButton, R.id.sb_setting_authentication,

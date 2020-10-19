@@ -16,6 +16,7 @@ import com.boc.jobleader.base.BaseActivity;
 import com.boc.jobleader.common.MyApplication;
 import com.boc.jobleader.custom.CountdownView;
 import com.boc.jobleader.custom.PasswordEditText;
+import com.boc.jobleader.custom.RegexEditText;
 import com.boc.jobleader.help.ActivityStackManager;
 import com.boc.jobleader.http.model.HttpData;
 import com.boc.jobleader.http.other.IntentKey;
@@ -38,7 +39,7 @@ public class RegisterActivity extends BaseActivity {
     CountdownView mCountdownView;
 
     @BindView(R.id.verifyPhoneInput)
-    AppCompatEditText phoneEditText;
+    RegexEditText phoneEditText;
 
     @BindView(R.id.et_phone_reset_code)
     AppCompatEditText codeEditText;

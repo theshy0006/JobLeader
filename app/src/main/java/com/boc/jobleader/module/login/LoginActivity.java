@@ -150,8 +150,6 @@ public class LoginActivity extends BaseActivity {
                     public void onSucceed(HttpData<AppAccessToken> data) {
                         EasyConfig.getInstance()
                                 .addParam("appAccessToken", data.getData().getAppAccessToken());
-                        System.out.println(data.getData().getAppAccessToken());
-
                         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putString("appAccessToken",data.getData().getAppAccessToken());

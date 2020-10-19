@@ -12,6 +12,7 @@ import com.boc.jobleader.R;
 import com.boc.jobleader.base.BaseActivity;
 import com.boc.jobleader.custom.CountdownView;
 import com.boc.jobleader.custom.PasswordEditText;
+import com.boc.jobleader.custom.RegexEditText;
 import com.boc.jobleader.http.model.HttpData;
 import com.boc.jobleader.http.other.IntentKey;
 import com.boc.jobleader.http.request.ForgetPasswordApi;
@@ -34,7 +35,7 @@ public class ForgetActivity extends BaseActivity {
     CountdownView mCountdownView;
 
     @BindView(R.id.verifyPhoneInput)
-    AppCompatEditText phoneEditText;
+    RegexEditText phoneEditText;
 
     @BindView(R.id.et_phone_reset_code)
     AppCompatEditText codeEditText;
@@ -42,14 +43,8 @@ public class ForgetActivity extends BaseActivity {
     @BindView(R.id.passwordCodeInput)
     PasswordEditText passwordEditText;
 
-    @BindView(R.id.registerButton)
-    Button registerButton;
-
-    @BindView(R.id.agreeLabel)
-    TextView agreeLabel;
-
-    @BindView(R.id.checkImage)
-    ImageView checkImage;
+    @BindView(R.id.loginButton)
+    Button loginButton;
 
     private Boolean agree = false;
 
@@ -70,21 +65,12 @@ public class ForgetActivity extends BaseActivity {
         super.initView();
     }
 
-    @OnClick({R.id.back, R.id.cv_phone_reset_countdown, R.id.agreeLabel, R.id.checkImage,
-            R.id.registerButton, R.id.et_phone_reset_code, R.id.passwordCodeInput})
+    @OnClick({R.id.back, R.id.cv_phone_reset_countdown,
+            R.id.loginButton, R.id.et_phone_reset_code, R.id.passwordCodeInput})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
-                break;
-            case R.id.agreeLabel:
-            case R.id.checkImage:
-                this.agree = !agree;
-                if( agree ) {
-                    this.checkImage.setImageResource(R.mipmap.check);
-                } else {
-                    this.checkImage.setImageResource(R.mipmap.uncheck);
-                }
                 break;
             case R.id.cv_phone_reset_countdown:
                 if (phoneEditText.getText().toString().length() == 0) {
@@ -117,7 +103,7 @@ public class ForgetActivity extends BaseActivity {
                         });
                 break;
 
-            case R.id.registerButton:
+            case R.id.loginButton:
                 if (phoneEditText.getText().toString().length() == 0) {
                     toast(R.string.common_phone_input_hint);
                     return;

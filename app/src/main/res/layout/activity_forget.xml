@@ -130,7 +130,7 @@
                 style="@style/HorizontalLineStyle"
                 android:layout_marginHorizontal="1dp" />
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <com.boc.jobleader.custom.PasswordEditText
                 android:id="@+id/passwordCodeInput"
                 style="@style/EditTextStyle"
                 android:layout_width="match_parent"
@@ -142,11 +142,14 @@
                 android:drawableStart="@mipmap/password"
                 android:drawablePadding="15dp"
                 android:hint="请重新输入密码"
-                android:inputType="number"
-                android:maxLength="@integer/sms_code_length"
+                android:maxLength="@integer/password_length"
                 android:paddingHorizontal="20dp"
                 android:singleLine="true"
                 android:textSize="14sp" />
+
+            <View
+                style="@style/HorizontalLineStyle"
+                android:layout_marginHorizontal="1dp" />
 
 
         </LinearLayout>
