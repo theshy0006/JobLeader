@@ -10,6 +10,6 @@ public class TestServer extends ReleaseServer {
 
     @Override
     public String getHost() {
-        return "http://yapi.todder.cn/mock/62/";
+        return "https://mock.yonyoucloud.com/mock/15896/";
     }
 }

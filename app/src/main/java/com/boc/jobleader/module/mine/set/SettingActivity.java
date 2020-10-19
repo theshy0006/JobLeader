@@ -11,6 +11,8 @@ import com.boc.jobleader.base.BaseActivity;
 import com.boc.jobleader.common.MyApplication;
 import com.boc.jobleader.custom.SettingBar;
 import com.boc.jobleader.help.ActivityStackManager;
+import com.boc.jobleader.help.CacheDataManager;
+import com.boc.jobleader.http.glide.GlideApp;
 import com.boc.jobleader.http.model.HttpData;
 import com.boc.jobleader.http.request.LoginApi;
 import com.boc.jobleader.http.request.LogoutApi;
@@ -43,8 +45,13 @@ public class SettingActivity extends BaseActivity {
     @BindView(R.id.account)
     SettingBar accountBar;
 
+    @BindView(R.id.clearContent)
+    SettingBar clearContent;
+
     @BindView(R.id.logoutButton)
     Button logoutButton;
+
+
 
 
     @Override
@@ -61,7 +68,8 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-
+        // 获取应用缓存大小
+        clearContent.setRightText(CacheDataManager.getTotalCacheSize(this));
         mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
 
             @Override
@@ -81,7 +89,7 @@ public class SettingActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.jobsearchView, R.id.account, R.id.logoutButton})
+    @OnClick({R.id.jobsearchView, R.id.account, R.id.logoutButton,R.id.clearContent})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.jobsearchView:
@@ -89,6 +97,19 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.account:
                 startActivity(new Intent(this, BindActivity.class));
+                break;
+            case R.id.clearContent:
+                // 清除内存缓存（必须在主线程）
+                GlideApp.get(this).clearMemory();
+                new Thread(() -> {
+                    CacheDataManager.clearAllCache(this);
+                    // 清除本地缓存（必须在子线程）
+                    GlideApp.get(this).clearDiskCache();
+                    post(() -> {
+                        // 重新获取应用缓存大小
+                        clearContent.setRightText(CacheDataManager.getTotalCacheSize(this));
+                    });
+                }).start();
                 break;
             case R.id.logoutButton:
                 EasyHttp.post(this)

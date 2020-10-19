@@ -140,6 +140,9 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        // 连接root服务器获取appAccessToken
+        MyApplication application = ActivityStackManager.getInstance().getApplication();
+        application.changeRootServer(application);
 
         // 刷新用户信息
         EasyHttp.post(this)
@@ -246,7 +249,7 @@ public class LoginActivity extends BaseActivity {
                         return;
                     }
 
-                    if (passwordPhoneInput.getText().toString().length() == 0) {
+                    if (passwordCodeInput.getText().toString().length() == 0) {
                         toast(R.string.common_password_input_error);
                         return;
                     }

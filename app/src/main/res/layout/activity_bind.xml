@@ -24,7 +24,7 @@
         app:bar_rightIcon="@mipmap/icon_arrow_right" />
 
     <com.boc.jobleader.custom.SettingBar
-        android:id="@+id/sex"
+        android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:bar_leftText="修改手机号"

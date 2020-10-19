@@ -25,11 +25,6 @@
     <!-- 图标颜色 -->
     <color name="colorIcon">#7C7C7C</color>
 
-    <!-- 对话框确认按钮文本颜色 -->
-    <color name="colorConfirm">#007AFF</color>
-    <!-- 对话框取消按钮文本颜色 -->
-    <color name="colorCancel">#F44336</color>
-
     <!-- 透明色 -->
     <color name="transparent">#00000000</color>
 
@@ -95,5 +90,10 @@
     <color name="pink">#FFFFC0CB</color>
     <!-- 橙色 -->
     <color name="orange">#FFFFA500</color>
+
+    <!-- 对话框确认按钮文本颜色 -->
+    <color name="colorConfirm">#3AA7FF</color>
+    <!-- 对话框取消按钮文本颜色 -->
+    <color name="colorCancel">#999999</color>
 
 </resources>

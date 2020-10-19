@@ -135,7 +135,7 @@ public class ForgetActivity extends BaseActivity {
 
                             @Override
                             public void onSucceed(HttpData<ForgetPasswordBean> data) {
-                                toast(R.string.register_succeed);
+                                toast("密码设置成功");
                                 setResult(RESULT_OK, new Intent()
                                         .putExtra(IntentKey.PHONE, phoneEditText.getText().toString())
                                         .putExtra(IntentKey.PASSWORD, passwordEditText.getText().toString()));

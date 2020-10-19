@@ -61,9 +61,18 @@
 
         <activity android:name=".module.mine.help.HelpActivity" />
         <activity android:name=".module.mine.aboutme.AboutmeActivity" />
-        <activity android:name=".module.mine.authentication.AuthenticationActivity" />
+        <activity android:name=".module.mine.authentication.AuthenticationActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
         <activity android:name=".module.mine.bind.BindActivity" />
-        <activity android:name=".module.mine.personal.PersonalActivity" /> <!-- 适配全面屏 -->
+        <activity android:name=".module.mine.personal.PersonalActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <!-- 适配全面屏 -->
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" /> <!-- 适配华为(hua wei)刘海屏 -->
@@ -74,8 +83,15 @@
             android:name="notch.config"
             android:value="portrait|landscape" />
 
-        <activity android:name=".module.mine.set.SettingActivity" />
-        <activity android:name=".module.root.MainActivity">
+        <activity android:name=".module.mine.set.SettingActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".module.root.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
