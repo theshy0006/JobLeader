@@ -79,7 +79,6 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:bar_leftText="@string/name"
-        app:bar_rightText="张三"
         app:bar_rightIcon="@mipmap/icon_arrow_right" />
 
     <com.boc.jobleader.custom.SettingBar
@@ -95,7 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:bar_leftText="@string/brithday"
-        app:bar_rightText="2020.07.29"
+        app:bar_rightText=""
         app:bar_rightIcon="@mipmap/icon_arrow_right" />
 
 

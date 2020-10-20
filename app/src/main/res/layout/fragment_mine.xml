@@ -82,7 +82,7 @@
                                     app:srcCompat="@mipmap/icon_shortcut_mine_1" />
 
                                 <TextView
-                                    android:layout_width="0dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:singleLine="true"
                                     android:text="消费记录"
@@ -110,7 +110,7 @@
                                     app:srcCompat="@mipmap/icon_shortcut_mine_2" />
 
                                 <TextView
-                                    android:layout_width="0dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:singleLine="true"
                                     android:text="提现记录"
@@ -138,7 +138,7 @@
                                     app:srcCompat="@mipmap/icon_shortcut_mine_3" />
 
                                 <TextView
-                                    android:layout_width="0dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:singleLine="true"
                                     android:text="仙豆充值"
@@ -166,7 +166,7 @@
                                     app:srcCompat="@mipmap/icon_shortcut_mine_4" />
 
                                 <TextView
-                                    android:layout_width="0dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:singleLine="true"
                                     android:text="安币充值"
@@ -219,7 +219,7 @@
                                     app:srcCompat="@mipmap/icon_wallet" />
 
                                 <TextView
-                                    android:layout_width="0dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:singleLine="true"
                                     android:text="我的钱包"
@@ -274,9 +274,9 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="100"
+                        android:text="0"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
@@ -286,7 +286,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="仙豆"
                         android:textAlignment="center"
@@ -307,9 +307,9 @@
                     app:layout_constraintStart_toEndOf="@+id/whiteLine">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="100"
+                        android:text="0"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
@@ -319,7 +319,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="安币"
                         android:textAlignment="center"
@@ -419,7 +419,7 @@
                 <View
                     android:id="@+id/view"
                     android:layout_width="0dp"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:layout_marginStart="9dp"
                     android:layout_marginEnd="9dp"
                     android:layout_marginBottom="113dp"
@@ -438,7 +438,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@color/white">
@@ -452,7 +452,7 @@
                             app:srcCompat="@mipmap/icon_mine_top" />
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
                             android:text="简历置顶"
@@ -465,10 +465,10 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:background="@color/white">
 
                         <ImageView
                             android:layout_width="22dp"
@@ -479,7 +479,7 @@
                             app:srcCompat="@mipmap/icon_mine_compete" />
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
                             android:text="竞争力分析"
@@ -492,10 +492,10 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:background="@color/white">
 
                         <ImageView
                             android:layout_width="22dp"
@@ -506,7 +506,7 @@
                             app:srcCompat="@mipmap/icon_mine_assessment" />
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
                             android:text="评估简历"
@@ -519,9 +519,9 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
                         <ImageView
                             android:layout_width="22dp"
@@ -532,7 +532,7 @@
                             app:srcCompat="@mipmap/icon_mine_helper" />
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
                             android:text="互助助手"
@@ -559,7 +559,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_weight="1"
                         android:background="@color/white"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <ImageView
@@ -571,7 +571,7 @@
                             app:srcCompat="@mipmap/icon_mine_hot" />
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
                             android:text="火爆职位"
@@ -586,7 +586,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_weight="1"
                         android:background="@color/white"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <ImageView
@@ -598,7 +598,7 @@
                             app:srcCompat="@mipmap/icon_mine_chat" />
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
                             android:text="畅聊卡"
@@ -614,7 +614,7 @@
                         android:layout_weight="1"
                         android:background="@color/white"
                         android:visibility="invisible"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <ImageView
@@ -641,7 +641,7 @@
                         android:layout_weight="1"
                         android:background="@color/white"
                         android:visibility="invisible"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <ImageView
                             android:layout_width="22dp"

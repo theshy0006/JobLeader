@@ -15,6 +15,7 @@ import com.boc.jobleader.http.other.AppConfig;
 import com.boc.jobleader.http.server.AuthServer;
 import com.boc.jobleader.http.server.ReleaseServer;
 import com.boc.jobleader.http.server.TestServer;
+import com.boc.jobleader.http.server.UpdateServer;
 import com.boc.jobleader.http.server.UserServer;
 import com.hjq.bar.TitleBar;
 import com.hjq.bar.initializer.LightBarInitializer;
@@ -109,7 +110,7 @@ public class MyApplication extends Application implements LifecycleOwner {
 
         EasyConfig.with(new OkHttpClient())
                 // 是否打印日志
-                .setLogEnabled(AppConfig.isDebug())
+                .setLogEnabled(true)
                 // 设置服务器配置
                 .setServer(server)
                 // 设置请求处理策略
@@ -134,7 +135,7 @@ public class MyApplication extends Application implements LifecycleOwner {
         String token =  settings.getString("token", "").toString();
         EasyConfig.with(new OkHttpClient())
                 // 是否打印日志
-                .setLogEnabled(AppConfig.isDebug())
+                .setLogEnabled(true)
                 // 设置服务器配置
                 .setServer(server)
                 // 设置请求处理策略
@@ -165,7 +166,38 @@ public class MyApplication extends Application implements LifecycleOwner {
 
         EasyConfig.with(new OkHttpClient())
                 // 是否打印日志
-                .setLogEnabled(AppConfig.isDebug())
+                .setLogEnabled(true)
+                // 设置服务器配置
+                .setServer(server)
+                // 设置请求处理策略
+                .setHandler(new RequestHandler(application))
+                // 设置请求重试次数
+                .setRetryCount(1)
+                // 添加全局请求参数
+                .addParam("appAccessToken", appAccessToken)
+                .addParam("token", token)
+                .addHeader("token", token)
+                // 启用配置
+                .into();
+    }
+
+    public void changeUpdateServer(Application application) {
+        // 网络请求框架初始化
+        IRequestServer server;
+        if (AppConfig.isDebug()) {
+            server = new TestServer();
+        } else {
+            server = new UpdateServer();
+        }
+
+        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+        String appAccessToken =  settings.getString("appAccessToken", "").toString();
+        String token =  settings.getString("token", "").toString();
+
+
+        EasyConfig.with(new OkHttpClient())
+                // 是否打印日志
+                .setLogEnabled(true)
                 // 设置服务器配置
                 .setServer(server)
                 // 设置请求处理策略

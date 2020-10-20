@@ -87,10 +87,14 @@
             android:singleLine="true" />
 
         <com.boc.jobleader.custom.CountdownView
-            android:id="@+id/cv_password_forget_countdown"
+            android:id="@+id/sendCodeButton"
             style="@style/CountdownViewStyle" />
 
     </LinearLayout>
+
+    <View
+        style="@style/HorizontalLineStyle"
+        android:layout_marginHorizontal="20dp" />
 
     <Button
         android:id="@+id/okButton"

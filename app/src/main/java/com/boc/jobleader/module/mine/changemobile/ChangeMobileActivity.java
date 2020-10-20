@@ -13,11 +13,14 @@ import android.widget.TextView;
 
 import com.boc.jobleader.R;
 import com.boc.jobleader.base.BaseActivity;
+import com.boc.jobleader.base.BaseDialog;
 import com.boc.jobleader.common.MyApplication;
 import com.boc.jobleader.custom.CountdownView;
+import com.boc.jobleader.dialog.MessageDialog;
 import com.boc.jobleader.help.ActivityStackManager;
 import com.boc.jobleader.http.model.HttpData;
 import com.boc.jobleader.http.other.IntentKey;
+import com.boc.jobleader.http.request.ChangeMobileApi;
 import com.boc.jobleader.http.request.CodeLoginApi;
 import com.boc.jobleader.http.request.GetCodeApi;
 import com.boc.jobleader.http.request.LoginApi;
@@ -55,7 +58,7 @@ public class ChangeMobileActivity extends BaseActivity {
     AppCompatEditText veryfyCodeInput;
 
     // 发送验证码
-    @BindView(R.id.cv_password_forget_countdown)
+    @BindView(R.id.sendCodeButton)
     CountdownView mCountdownView;
 
     @BindView(R.id.okButton)
@@ -77,11 +80,9 @@ public class ChangeMobileActivity extends BaseActivity {
         super.initView();
 
         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-        String nickname =  settings.getString("nickname", "").toString();
         String phone =  settings.getString("phone", "").toString();
         String maskNumber = phone.substring(0,3)+"****"+phone.substring(7,phone.length());
         oldPhone.setText(maskNumber);
-
 
         mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
 
@@ -102,10 +103,10 @@ public class ChangeMobileActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.cv_password_forget_countdown, R.id.okButton})
+    @OnClick({R.id.sendCodeButton, R.id.okButton})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cv_phone_reset_countdown:
+            case R.id.sendCodeButton:
                 if (verifyPhoneInput.getText().toString().length() == 0) {
                     toast(R.string.common_phone_input_hint);
                     return;
@@ -125,7 +126,7 @@ public class ChangeMobileActivity extends BaseActivity {
 
                             @Override
                             public void onSucceed(HttpData<Void> data) {
-                                toast(R.string.common_code_send_hint);
+                                super.onSucceed(data);
                                 mCountdownView.start();
                             }
 
@@ -154,38 +155,66 @@ public class ChangeMobileActivity extends BaseActivity {
                     return;
                 }
 
-                // 验证码登录
+                // 更新手机号
                 EasyHttp.post(this)
-                        .api(new UpdateApi()
-                                .setPhone(verifyPhoneInput.getText().toString()))
+                        .api(new ChangeMobileApi()
+                                .setPhone(verifyPhoneInput.getText().toString())
+                                .setCode(veryfyCodeInput.getText().toString()))
                         .request(new HttpCallback<HttpData<UpdateBean>>(this) {
 
                             @Override
                             public void onSucceed(HttpData<UpdateBean> data) {
-                                EasyConfig.getInstance().setParams(new HashMap<>());
-                                SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-                                SharedPreferences.Editor editor = settings.edit();
-                                editor.putString("token","");
-                                editor.putString("userName","");
-                                editor.putString("phone","");
-                                editor.putString("nickname","");
-                                editor.putString("avator","");
-                                editor.commit();
+                                new MessageDialog.Builder(ChangeMobileActivity.this)
+                                        // 标题可以不用填写
+                                        .setTitle("修改成功")
+                                        // 内容必须要填写
+                                        .setMessage("您已经成功修改了手机号码\n登录时请使用新手机号码")
+                                        // 确定按钮文本
+                                        .setConfirm(getString(R.string.common_confirm))
+                                        // 设置 null 表示不显示取消按钮
+                                        .setCancel(null)
+                                        // 设置点击按钮后不关闭对话框
+                                        //.setAutoDismiss(false)
+                                        .setListener(new MessageDialog.OnListener() {
 
-                                MyApplication application = ActivityStackManager.getInstance().getApplication();
-                                application.changeRootServer(application);
+                                            @Override
+                                            public void onConfirm(BaseDialog dialog) {
+                                                logout();
+                                            }
 
-                                Intent intent = new Intent(application, LoginActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                application.startActivity(intent);
-                                // 销毁除了登录之外的界面
-                                ActivityStackManager.getInstance().finishAllActivities(LoginActivity.class);
+                                            @Override
+                                            public void onCancel(BaseDialog dialog) {
+
+                                            }
+                                        })
+                                        .show();
                             }
                         });
 
                 break;
 
         }
+    }
+
+    public void logout() {
+        EasyConfig.getInstance().setParams(new HashMap<>());
+        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("token","");
+        editor.putString("userName","");
+        editor.putString("phone","");
+        editor.putString("nickname","");
+        editor.putString("avator","");
+        editor.commit();
+
+        MyApplication application = ActivityStackManager.getInstance().getApplication();
+        application.changeRootServer(application);
+
+        Intent intent = new Intent(application, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        application.startActivity(intent);
+        // 销毁除了登录之外的界面
+        ActivityStackManager.getInstance().finishAllActivities(LoginActivity.class);
     }
 
 }

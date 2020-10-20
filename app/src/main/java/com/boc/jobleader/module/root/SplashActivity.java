@@ -37,9 +37,6 @@ import static java.lang.Thread.sleep;
  */
 public final class SplashActivity extends BaseActivity {
 
-    @BindView(R.id.iv_splash_debug)
-    View mDebugView;
-
     @Override
     protected int getLayoutId() {
         return R.layout.splash_activity;
@@ -74,11 +71,6 @@ public final class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        if (AppConfig.isDebug()) {
-            mDebugView.setVisibility(View.VISIBLE);
-        } else {
-            mDebugView.setVisibility(View.INVISIBLE);
-        }
 
 
     }

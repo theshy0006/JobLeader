@@ -17,6 +17,7 @@ import com.boc.jobleader.http.glide.GlideApp;
 import com.boc.jobleader.module.mine.aboutme.AboutmeActivity;
 import com.boc.jobleader.module.mine.authentication.AuthenticationActivity;
 import com.boc.jobleader.module.mine.help.HelpActivity;
+import com.boc.jobleader.module.mine.personal.PersonalActivity;
 import com.boc.jobleader.module.mine.set.SettingActivity;
 import com.boc.jobleader.module.root.MainActivity;
 import com.bumptech.glide.Glide;
@@ -51,19 +52,10 @@ public class MineFragment extends BaseFragment {
         super.initView();
         // 不使用图标默认变色
 
-        SharedPreferences settings = getActivity().getSharedPreferences("UserInfo", 0);
-        String nickname =  settings.getString("nickname", "").toString();
-        String avator =  settings.getString("avator", "").toString();
-        userName.setText(nickname);
-
-        Glide.with(this)
-                .load(avator)
-                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                .into(mAvatarView);
     }
 
     @OnClick({R.id.settingButton, R.id.sb_setting_authentication,
-            R.id.sb_setting_about, R.id.sb_setting_feedback})
+            R.id.sb_setting_about, R.id.sb_setting_feedback, R.id.imageView3})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.settingButton:
@@ -78,6 +70,9 @@ public class MineFragment extends BaseFragment {
             case R.id.sb_setting_feedback:
                 startActivity(new Intent(getContext(), HelpActivity.class));
                 break;
+            case R.id.imageView3:
+                startActivity(new Intent(getContext(), PersonalActivity.class));
+                break;
         }
     }
 
@@ -86,6 +81,16 @@ public class MineFragment extends BaseFragment {
         super.onResume();
         MyApplication application = ActivityStackManager.getInstance().getApplication();
         application.changeUserServer(application);
+
+        SharedPreferences settings = getActivity().getSharedPreferences("UserInfo", 0);
+        String nickname =  settings.getString("nickname", "").toString();
+        String avator =  settings.getString("avator", "").toString();
+        userName.setText(nickname);
+
+        Glide.with(this)
+                .load(avator)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .into(mAvatarView);
     }
 }
 

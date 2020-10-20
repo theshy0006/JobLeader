@@ -9,24 +9,24 @@ public class CompanyAddApi implements IRequestApi {
     }
 
     /** 公司名称 */
-    private String companyName;
+    private String fullName;
     /** 营业执照 */
-    private String businessLicence;
+    private String dutyParagraphNumber;
     /** 证件照片 */
-    private String faceCardImg;
+    private String businessLicence;
 
-    public CompanyAddApi setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public CompanyAddApi setFullName(String fullName) {
+        this.fullName = fullName;
+        return this;
+    }
+
+    public CompanyAddApi setDutyParagraphNumber(String dutyParagraphNumber) {
+        this.dutyParagraphNumber = dutyParagraphNumber;
         return this;
     }
 
     public CompanyAddApi setBusinessLicence(String businessLicence) {
         this.businessLicence = businessLicence;
-        return this;
-    }
-
-    public CompanyAddApi setFaceCardImg(String faceCardImg) {
-        this.faceCardImg = faceCardImg;
         return this;
     }
 }

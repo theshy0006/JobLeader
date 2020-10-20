@@ -10,7 +10,9 @@ import android.widget.Button;
 
 import com.boc.jobleader.R;
 import com.boc.jobleader.base.BaseActivity;
+import com.boc.jobleader.base.BaseDialog;
 import com.boc.jobleader.custom.PasswordEditText;
+import com.boc.jobleader.dialog.MessageDialog;
 import com.boc.jobleader.http.model.HttpData;
 import com.boc.jobleader.http.other.IntentKey;
 import com.boc.jobleader.http.request.GetCodeApi;
@@ -18,6 +20,7 @@ import com.boc.jobleader.http.request.RegisterApi;
 import com.boc.jobleader.http.request.UpdatePasswordApi;
 import com.boc.jobleader.http.response.RegisterBean;
 import com.boc.jobleader.http.response.UpdatePasswordBean;
+import com.boc.jobleader.module.mine.changemobile.ChangeMobileActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -115,11 +118,38 @@ public class PasswordActivity extends BaseActivity {
 
                             @Override
                             public void onSucceed(HttpData<UpdatePasswordBean> data) {
-                                toast("密码修改成功");
+                                showResult();
                             }
                         });
         }
 
+    }
+
+    public void showResult() {
+        new MessageDialog.Builder(PasswordActivity.this)
+                // 标题可以不用填写
+                .setTitle("修改成功")
+                // 内容必须要填写
+                .setMessage("您已经成功修改了密码\n登录时请使用新密码")
+                // 确定按钮文本
+                .setConfirm(getString(R.string.common_confirm))
+                // 设置 null 表示不显示取消按钮
+                .setCancel(null)
+                // 设置点击按钮后不关闭对话框
+                //.setAutoDismiss(false)
+                .setListener(new MessageDialog.OnListener() {
+
+                    @Override
+                    public void onConfirm(BaseDialog dialog) {
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancel(BaseDialog dialog) {
+
+                    }
+                })
+                .show();
     }
 
 }

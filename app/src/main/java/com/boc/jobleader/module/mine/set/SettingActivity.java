@@ -8,8 +8,10 @@ import android.widget.Button;
 
 import com.boc.jobleader.R;
 import com.boc.jobleader.base.BaseActivity;
+import com.boc.jobleader.base.BaseDialog;
 import com.boc.jobleader.common.MyApplication;
 import com.boc.jobleader.custom.SettingBar;
+import com.boc.jobleader.dialog.MessageDialog;
 import com.boc.jobleader.help.ActivityStackManager;
 import com.boc.jobleader.help.CacheDataManager;
 import com.boc.jobleader.http.glide.GlideApp;
@@ -20,6 +22,7 @@ import com.boc.jobleader.http.response.LoginBean;
 import com.boc.jobleader.http.response.LogoutBean;
 import com.boc.jobleader.module.login.LoginActivity;
 import com.boc.jobleader.module.mine.bind.BindActivity;
+import com.boc.jobleader.module.mine.changemobile.ChangeMobileActivity;
 import com.boc.jobleader.module.mine.personal.PersonalActivity;
 import com.boc.jobleader.module.root.MainActivity;
 import com.gyf.immersionbar.ImmersionBar;
@@ -99,17 +102,41 @@ public class SettingActivity extends BaseActivity {
                 startActivity(new Intent(this, BindActivity.class));
                 break;
             case R.id.clearContent:
-                // 清除内存缓存（必须在主线程）
-                GlideApp.get(this).clearMemory();
-                new Thread(() -> {
-                    CacheDataManager.clearAllCache(this);
-                    // 清除本地缓存（必须在子线程）
-                    GlideApp.get(this).clearDiskCache();
-                    post(() -> {
-                        // 重新获取应用缓存大小
-                        clearContent.setRightText(CacheDataManager.getTotalCacheSize(this));
-                    });
-                }).start();
+
+                new MessageDialog.Builder(SettingActivity.this)
+                        // 标题可以不用填写
+                        .setTitle("清除缓存")
+                        // 内容必须要填写
+                        .setMessage("清除后，图片，消息等内容则全部清空，确认清除？")
+                        // 确定按钮文本
+                        .setConfirm(getString(R.string.common_confirm))
+                        // 设置 null 表示不显示取消按钮
+                        .setCancel(null)
+                        // 设置点击按钮后不关闭对话框
+                        //.setAutoDismiss(false)
+                        .setListener(new MessageDialog.OnListener() {
+
+                            @Override
+                            public void onConfirm(BaseDialog dialog) {
+                                // 清除内存缓存（必须在主线程）
+                                GlideApp.get(SettingActivity.this).clearMemory();
+                                new Thread(() -> {
+                                    CacheDataManager.clearAllCache(SettingActivity.this);
+                                    // 清除本地缓存（必须在子线程）
+                                    GlideApp.get(SettingActivity.this).clearDiskCache();
+                                    post(() -> {
+                                        // 重新获取应用缓存大小
+                                        clearContent.setRightText(CacheDataManager.getTotalCacheSize(SettingActivity.this));
+                                    });
+                                }).start();
+                            }
+
+                            @Override
+                            public void onCancel(BaseDialog dialog) {
+
+                            }
+                        })
+                        .show();
                 break;
             case R.id.logoutButton:
                 EasyHttp.post(this)
@@ -118,6 +145,30 @@ public class SettingActivity extends BaseActivity {
 
                             @Override
                             public void onSucceed(HttpData<LogoutBean> data) {
+                                super.onSucceed(data);
+                                EasyConfig.getInstance().setParams(new HashMap<>());
+                                SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+                                SharedPreferences.Editor editor = settings.edit();
+                                editor.putString("token","");
+                                editor.putString("userName","");
+                                editor.putString("phone","");
+                                editor.putString("nickname","");
+                                editor.putString("avator","");
+                                editor.commit();
+
+                                MyApplication application = ActivityStackManager.getInstance().getApplication();
+                                application.changeRootServer(application);
+
+                                Intent intent = new Intent(application, LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                application.startActivity(intent);
+                                // 销毁除了登录之外的界面
+                                ActivityStackManager.getInstance().finishAllActivities(LoginActivity.class);
+                            }
+
+                            @Override
+                            public void onFail(Exception e) {
+                                super.onFail(e);
                                 EasyConfig.getInstance().setParams(new HashMap<>());
                                 SharedPreferences settings = getSharedPreferences("UserInfo", 0);
                                 SharedPreferences.Editor editor = settings.edit();

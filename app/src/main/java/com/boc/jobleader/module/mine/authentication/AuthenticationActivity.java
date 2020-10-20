@@ -64,7 +64,7 @@ public class AuthenticationActivity extends BaseActivity {
         MyApplication application = ActivityStackManager.getInstance().getApplication();
         application.changeAuthServer(application);
 
-        // 刷新用户信息
+        // 查询认证信息
         EasyHttp.post(this)
                 .api(new GetMyAuthCompanyApi())
                 .request(new HttpCallback<HttpListData<CompanyAuthList>>(this) {
@@ -108,8 +108,15 @@ public class AuthenticationActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.companyView:
-                startActivity(new Intent(this, CompanyAuthActivity.class));
-                break;
+
+                if ("未认证".equals(companyStatus.getText().toString())) {
+                    startActivity(new Intent(this, CompanyAuthActivity.class));
+                    break;
+                } else {
+                    toast("您已经完成认证");
+                }
+
+
         }
     }
 }

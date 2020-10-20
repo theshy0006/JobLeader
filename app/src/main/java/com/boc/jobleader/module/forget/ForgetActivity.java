@@ -92,7 +92,7 @@ public class ForgetActivity extends BaseActivity {
 
                             @Override
                             public void onSucceed(HttpData<Void> data) {
-                                toast(R.string.common_code_send_hint);
+                                super.onSucceed(data);
                                 mCountdownView.start();
                             }
 

@@ -25,11 +25,4 @@
         android:scaleType="fitXY"
         app:srcCompat="@mipmap/rootpage" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_splash_debug"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="end"
-        app:srcCompat="@drawable/debug_ic" />
-
 </FrameLayout>

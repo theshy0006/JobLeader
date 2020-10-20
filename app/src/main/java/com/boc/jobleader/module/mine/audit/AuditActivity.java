@@ -2,21 +2,48 @@ package com.boc.jobleader.module.mine.audit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.boc.jobleader.R;
 import com.boc.jobleader.base.BaseActivity;
+import com.boc.jobleader.base.BaseDialog;
+import com.boc.jobleader.dialog.MessageDialog;
+import com.boc.jobleader.http.model.HttpData;
+import com.boc.jobleader.http.request.AddUserApi;
+import com.boc.jobleader.http.request.ChangeMobileApi;
+import com.boc.jobleader.http.response.AddUserBean;
+import com.boc.jobleader.http.response.UpdateBean;
+import com.boc.jobleader.module.mine.changemobile.ChangeMobileActivity;
+import com.boc.jobleader.module.mine.company.CompanyAuthActivity;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
+import com.hjq.http.EasyHttp;
+import com.hjq.http.listener.HttpCallback;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class AuditActivity extends BaseActivity {
 
     @BindView(R.id.commonTitleBar)
     TitleBar mTitleBar;
+
+    @BindView(R.id.nameInput)
+    EditText nameInput;
+
+    @BindView(R.id.licenseInput)
+    EditText licenseInput;
+
+    @BindView(R.id.job)
+    EditText job;
+
+    @BindView(R.id.button2)
+    Button commitButton;
 
     @Override
     protected int getLayoutId() {
@@ -50,5 +77,39 @@ public class AuditActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @OnClick({R.id.button2})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.button2:
+                if (nameInput.getText().toString().length() == 0) {
+                    toast("请输入名字");
+                    return;
+                }
+                if (licenseInput.getText().toString().length() == 0) {
+                    toast("请输入部门");
+                    return;
+                }
+                if (job.getText().toString().length() == 0) {
+                    toast("请输入职位");
+                    return;
+                }
+
+                //
+                EasyHttp.post(this)
+                        .api(new AddUserApi())
+                        .request(new HttpCallback<HttpData<AddUserBean>>(this) {
+
+                            @Override
+                            public void onSucceed(HttpData<AddUserBean> data) {
+                                
+                            }
+                        });
+
+                break;
+
+
+        }
     }
 }

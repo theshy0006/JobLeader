@@ -262,7 +262,7 @@ public class LoginActivity extends BaseActivity {
 
                                 @Override
                                 public void onSucceed(HttpData<LoginBean> data) {
-
+                                    super.onSucceed(data);
                                     EasyConfig.getInstance().addParam("token",data.getData().getAccessToken().getAccessToken().toString());
                                     EasyConfig.getInstance().addHeader("token",data.getData().getAccessToken().getAccessToken().toString());
 
@@ -274,6 +274,9 @@ public class LoginActivity extends BaseActivity {
                                     editor.putString("phone",data.getData().getUser().getPhone().toString());
                                     editor.putString("nickname",data.getData().getUser().getNickname().toString());
                                     editor.putString("avator",data.getData().getUser().getAvator().toString());
+                                    editor.putInt("gender",data.getData().getUser().getGender());
+                                    editor.putString("brithday",data.getData().getUser().getBirthdate());
+
                                     editor.commit();
 
                                     Application application = ActivityStackManager.getInstance().getApplication();
@@ -311,7 +314,7 @@ public class LoginActivity extends BaseActivity {
 
                                 @Override
                                 public void onSucceed(HttpData<LoginBean> data) {
-
+                                    super.onSucceed(data);
                                     EasyConfig.getInstance().addParam("token",data.getData().getAccessToken().getAccessToken().toString());
                                     EasyConfig.getInstance().addHeader("token",data.getData().getAccessToken().getAccessToken().toString());
 
@@ -323,6 +326,8 @@ public class LoginActivity extends BaseActivity {
                                     editor.putString("phone",data.getData().getUser().getPhone().toString());
                                     editor.putString("nickname",data.getData().getUser().getNickname().toString());
                                     editor.putString("avator",data.getData().getUser().getAvator().toString());
+                                    editor.putInt("gender",data.getData().getUser().getGender());
+                                    editor.putString("brithday",data.getData().getUser().getBirthdate());
                                     editor.commit();
 
                                     Application application = ActivityStackManager.getInstance().getApplication();
