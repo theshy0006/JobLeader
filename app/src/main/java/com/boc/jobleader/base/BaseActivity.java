@@ -137,6 +137,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnHttpLi
      */
     public void startActivityForResult(Class<? extends Activity> clazz, OnActivityCallback callback) {
         startActivityForResult(new Intent(this, clazz), null, callback);
+        overridePendingTransition(R.anim.right_in_activity, R.anim.right_out_activity);
     }
 
     public void startActivityForResult(Intent intent, OnActivityCallback callback) {
@@ -164,7 +165,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnHttpLi
     /**
      * 隐藏软键盘
      */
-    private void hideSoftKeyboard() {
+    public void hideSoftKeyboard() {
         // 隐藏软键盘，避免软键盘引发的内存泄露
         View view = getCurrentFocus();
         if (view != null) {
@@ -198,7 +199,6 @@ public abstract class BaseActivity extends AppCompatActivity implements OnHttpLi
 
     @Override
     public void onStart(Call call) {
-        showDialog();
     }
 
     @Override
@@ -210,7 +210,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnHttpLi
 
     @Override
     public void onFail(Exception e) {
-
+        hideDialog();
         toast(e.getMessage());
     }
 

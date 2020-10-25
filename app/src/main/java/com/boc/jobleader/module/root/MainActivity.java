@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -31,10 +32,10 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener,
         BottomNavigationView.OnNavigationItemSelectedListener {
-
+    @Nullable
     @BindView(R.id.vp_home_pager)
     ViewPager mViewPager;
-
+    @Nullable
     @BindView(R.id.bv_home_navigation)
     BottomNavigationView mBottomNavigationView;
 

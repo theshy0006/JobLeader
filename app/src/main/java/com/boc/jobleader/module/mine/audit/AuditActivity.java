@@ -1,5 +1,6 @@
 package com.boc.jobleader.module.mine.audit;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,6 +18,8 @@ import com.boc.jobleader.http.request.AddUserApi;
 import com.boc.jobleader.http.request.ChangeMobileApi;
 import com.boc.jobleader.http.response.AddUserBean;
 import com.boc.jobleader.http.response.UpdateBean;
+import com.boc.jobleader.module.mine.authentication.AuthenticationActivity;
+import com.boc.jobleader.module.mine.authstatus.AuthStatusActivity;
 import com.boc.jobleader.module.mine.changemobile.ChangeMobileActivity;
 import com.boc.jobleader.module.mine.company.CompanyAuthActivity;
 import com.gyf.immersionbar.ImmersionBar;
@@ -29,21 +32,23 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class AuditActivity extends BaseActivity {
-
+    @Nullable
     @BindView(R.id.commonTitleBar)
     TitleBar mTitleBar;
-
+    @Nullable
     @BindView(R.id.nameInput)
     EditText nameInput;
-
+    @Nullable
     @BindView(R.id.licenseInput)
     EditText licenseInput;
-
-    @BindView(R.id.job)
+    @Nullable
+    @BindView(R.id.jobInput)
     EditText job;
-
+    @Nullable
     @BindView(R.id.button2)
     Button commitButton;
+
+    private String companyId;
 
     @Override
     protected int getLayoutId() {
@@ -59,12 +64,12 @@ public class AuditActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-
+        companyId = getIntent().getStringExtra("companyId");
         mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
 
             @Override
             public void onLeftClick(View v) {
-                finish();
+                startActivity(new Intent(AuditActivity.this, AuthenticationActivity.class));
             }
 
             @Override
@@ -95,15 +100,32 @@ public class AuditActivity extends BaseActivity {
                     toast("请输入职位");
                     return;
                 }
-
+                showDialog();
                 //
                 EasyHttp.post(this)
-                        .api(new AddUserApi())
+                        .api(new AddUserApi()
+                                .setType("员工")
+                                .setName(nameInput.getText().toString())
+                                .setCompanyId(companyId)
+                                .setDepartment(licenseInput.getText().toString()))
                         .request(new HttpCallback<HttpData<AddUserBean>>(this) {
 
                             @Override
                             public void onSucceed(HttpData<AddUserBean> data) {
-                                
+                                if (data.getCode() == 500) {
+                                    //失败
+                                    Intent intent = new Intent(AuditActivity.this, AuthStatusActivity.class);
+                                    intent.putExtra("type", 5);
+                                    startActivity(intent);
+                                } else if (data.getMessage().contains("审核中")) {
+                                    Intent intent = new Intent(AuditActivity.this, AuthStatusActivity.class);
+                                    intent.putExtra("type", 4);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(AuditActivity.this, AuthStatusActivity.class);
+                                    intent.putExtra("type", 3);
+                                    startActivity(intent);
+                                }
                             }
                         });
 

@@ -10,7 +10,7 @@
         android:id="@+id/bg"
         android:layout_width="0dp"
         android:layout_height="159dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,10 +18,11 @@
 
     <ImageView
         android:id="@+id/back"
-        android:layout_width="12dp"
-        android:layout_height="21dp"
+        android:layout_width="34dp"
+        android:layout_height="42dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="22dp"
+        android:scaleType="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/icon_back" />
@@ -56,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="53dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

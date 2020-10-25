@@ -1,13 +1,16 @@
 package com.boc.jobleader.module.mine.company;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,30 +42,36 @@ import com.boc.jobleader.module.mine.personal.PersonalActivity;
 import com.boc.jobleader.module.register.RegisterActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
 import com.hjq.http.EasyHttp;
 import com.hjq.http.listener.HttpCallback;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
+import com.hjq.toast.ToastUtils;
 
 import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 public class CompanyAuthActivity extends BaseActivity {
-
+    @Nullable
     @BindView(R.id.commonTitleBar)
     TitleBar mTitleBar;
-
+    @Nullable
     @BindView(R.id.nameInput)
     EditText nameInput;
-
+    @Nullable
     @BindView(R.id.licenseInput)
     EditText licenseInput;
-
+    @Nullable
     @BindView(R.id.updateButton)
     Button updateButton;
 
@@ -116,11 +125,21 @@ public class CompanyAuthActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 //这个方法被调用，那么说明s字符串的某个地方已经被改变。
-
                 FindCompany(s.toString());
             }
         });
 
+    }
+
+    private void hideSoftBoard() {
+        // 隐藏软键盘，避免软键盘引发的内存泄露
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (manager != null && manager.isActive(view)) {
+                manager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
     }
 
     public void FindCompany(String name) {
@@ -135,14 +154,16 @@ public class CompanyAuthActivity extends BaseActivity {
 
                     @Override
                     public void onSucceed(HttpData<FindCompanyBean> data) {
-
-                        Integer exit = data.getData().getExit();
-
-                        if (exit != 0) {
+                        Integer exist = data.getData().getExist();
+                        if (exist == 0) {
                             // 企业还没有认证过
                         } else {
                             // 企业已经认证过
 
+                            hideSoftBoard();
+
+
+                            String companyId = data.getData().getCompanyId();
                             new MessageDialog.Builder(CompanyAuthActivity.this)
                                     // 标题可以不用填写
                                     .setTitle("公司已认证")
@@ -158,7 +179,10 @@ public class CompanyAuthActivity extends BaseActivity {
 
                                         @Override
                                         public void onConfirm(BaseDialog dialog) {
-                                            startActivity(new Intent(CompanyAuthActivity.this, AuditActivity.class));
+                                            Intent intent = new Intent(CompanyAuthActivity.this, AuditActivity.class);
+                                            intent.putExtra("companyId",companyId);
+                                            startActivity(intent);
+
                                         }
 
                                         @Override
@@ -179,34 +203,31 @@ public class CompanyAuthActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.zhengjianImageView:
 
+                XXPermissions.with(this)
+                        .permission(Permission.READ_EXTERNAL_STORAGE)
+                        .permission(Permission.WRITE_EXTERNAL_STORAGE)
+                        .permission(Permission.CAMERA)
+                        .request(new OnPermission() {
 
-                ImageSelectActivity.start(this, data -> {
-
-                    if (true) {
-                        yingyeImageUrl = data.get(0);
-                        Glide.with(this)
-                                .load(yingyeImageUrl)
-                                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                                .into(zhengjianImageView);
-                    }
-
-                    MyApplication application = ActivityStackManager.getInstance().getApplication();
-                    application.changeUpdateServer(application);
-                    // 上传头像
-                    EasyHttp.post(this)
-                            .api(new UpdateImageApi()
-                                    .setFile(new File(yingyeImageUrl)))
-                            .request(new HttpCallback<HttpData<UpdateImageBean>>(CompanyAuthActivity.this) {
-
-                                @Override
-                                public void onSucceed(HttpData<UpdateImageBean> data) {
-                                    yingyeImageUrl = data.getData().getUrl().toString();
-                                    Glide.with(CompanyAuthActivity.this)
-                                            .load(yingyeImageUrl)
-                                            .into(zhengjianImageView);
+                            @Override
+                            public void hasPermission(List<String> granted, boolean all) {
+                                if (all) {
+                                    openPhotos();
+                                } else {
+                                    ToastUtils.show("部分权限未正常授予");
+                                    openPhotos();
                                 }
-                            });
-                });
+                            }
+
+                            @Override
+                            public void noPermission(List<String> denied, boolean never) {
+                                if (never) {
+                                    ToastUtils.show("被永久拒绝授权，请手动授予相册和拍照权限");
+                                } else {
+                                    ToastUtils.show("获取权限失败");
+                                }
+                            }
+                        });
                 break;
             case R.id.updateButton:
                 //密码登录模式
@@ -237,13 +258,57 @@ public class CompanyAuthActivity extends BaseActivity {
 
                             @Override
                             public void onSucceed(HttpData<CompanyAddBean> data) {
-                                super.onSucceed(data);
-                                startActivity(new Intent(CompanyAuthActivity.this, AuthStatusActivity.class));
+
+                                if (data.getCode() == 500) {
+                                    //失败
+                                    Intent intent = new Intent(CompanyAuthActivity.this, AuthStatusActivity.class);
+                                    intent.putExtra("type", 1);
+                                    startActivity(intent);
+                                } else if (data.getMessage().contains("审核中")) {
+                                    Intent intent = new Intent(CompanyAuthActivity.this, AuthStatusActivity.class);
+                                    intent.putExtra("type", 2);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(CompanyAuthActivity.this, AuthStatusActivity.class);
+                                    intent.putExtra("type", 0);
+                                    startActivity(intent);
+                                }
+
 
                             }
                         });
 
                 break;
         }
+    }
+
+    public void openPhotos() {
+        ImageSelectActivity.start(this, data -> {
+            //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
+            RoundedCorners roundedCorners= new RoundedCorners(6);
+            RequestOptions options=RequestOptions.bitmapTransform(roundedCorners).override(200, 120);
+            if (true) {
+                yingyeImageUrl = data.get(0);
+            }
+
+            MyApplication application = ActivityStackManager.getInstance().getApplication();
+            application.changeUpdateServer(application);
+            // 上传头像
+            EasyHttp.post(this)
+                    .api(new UpdateImageApi()
+                            .setFile(new File(yingyeImageUrl)))
+                    .request(new HttpCallback<HttpData<UpdateImageBean>>(CompanyAuthActivity.this) {
+
+                        @Override
+                        public void onSucceed(HttpData<UpdateImageBean> data) {
+                            yingyeImageUrl = data.getData().getUrl().toString();
+                            Glide.with(CompanyAuthActivity.this)
+                                    .load(yingyeImageUrl)
+                                    .override(200,120)
+                                    .apply(options)
+                                    .into(zhengjianImageView);
+                        }
+                    });
+        });
     }
 }

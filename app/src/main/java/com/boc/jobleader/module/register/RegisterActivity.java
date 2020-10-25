@@ -1,5 +1,6 @@
 package com.boc.jobleader.module.register;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -23,6 +24,7 @@ import com.boc.jobleader.http.other.IntentKey;
 import com.boc.jobleader.http.request.GetCodeApi;
 import com.boc.jobleader.http.request.RegisterApi;
 import com.boc.jobleader.http.response.RegisterBean;
+import com.boc.jobleader.module.browser.BrowserActivity;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.http.EasyHttp;
 import com.hjq.http.listener.HttpCallback;
@@ -31,32 +33,37 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class RegisterActivity extends BaseActivity {
-
+    @Nullable
     @BindView(R.id.back)
     ImageView back;
-
+    @Nullable
     @BindView(R.id.cv_phone_reset_countdown)
     CountdownView mCountdownView;
-
+    @Nullable
     @BindView(R.id.verifyPhoneInput)
     RegexEditText phoneEditText;
-
+    @Nullable
     @BindView(R.id.et_phone_reset_code)
     AppCompatEditText codeEditText;
-
+    @Nullable
     @BindView(R.id.passwordCodeInput)
     PasswordEditText passwordEditText;
-
+    @Nullable
     @BindView(R.id.registerButton)
     Button registerButton;
-
+    @Nullable
     @BindView(R.id.agreeLabel)
     TextView agreeLabel;
 
+    @Nullable
+    @BindView(R.id.forget2)
+    TextView forget2;
+
+    @Nullable
     @BindView(R.id.checkImage)
     ImageView checkImage;
 
-    private Boolean agree = false;
+    private Boolean agree = true;
 
 
     @Override
@@ -76,7 +83,7 @@ public class RegisterActivity extends BaseActivity {
     }
 
     @OnClick({R.id.back, R.id.cv_phone_reset_countdown, R.id.agreeLabel, R.id.checkImage,
-            R.id.registerButton, R.id.et_phone_reset_code, R.id.passwordCodeInput})
+            R.id.registerButton, R.id.et_phone_reset_code, R.id.passwordCodeInput, R.id.forget2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -102,7 +109,7 @@ public class RegisterActivity extends BaseActivity {
                     return;
                 }
 
-
+                showDialog();
                 // 获取验证码
                 EasyHttp.post(this)
                         .api(new GetCodeApi()
@@ -122,7 +129,17 @@ public class RegisterActivity extends BaseActivity {
                         });
                 break;
 
+            case R.id.forget2:
+                BrowserActivity.start(this, "https://www.buick.com.cn/privacy.html");
+                break;
+
             case R.id.registerButton:
+
+                if( !agree ) {
+                    toast("请同意隐私政策和服务协议");
+                    return;
+                }
+
                 if (phoneEditText.getText().toString().length() == 0) {
                     toast(R.string.common_phone_input_hint);
                     return;
@@ -143,7 +160,7 @@ public class RegisterActivity extends BaseActivity {
                     toast(R.string.common_password_input_error);
                     return;
                 }
-
+                showDialog();
                 // 提交注册
                 EasyHttp.post(this)
                         .api(new RegisterApi()

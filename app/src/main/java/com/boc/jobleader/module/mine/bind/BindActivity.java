@@ -1,5 +1,6 @@
 package com.boc.jobleader.module.mine.bind;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -26,13 +27,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class BindActivity extends BaseActivity {
-
+    @Nullable
     @BindView(R.id.commonTitleBar)
     TitleBar mTitleBar;
-
+    @Nullable
     @BindView(R.id.name)
     SettingBar name;
-
+    @Nullable
     @BindView(R.id.phone)
     SettingBar phoneBar;
 

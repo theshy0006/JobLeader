@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.boc.jobleader.R;
@@ -19,10 +20,12 @@ import com.boc.jobleader.http.request.GetMyAuthCompanyApi;
 import com.boc.jobleader.http.response.AppAccessToken;
 import com.boc.jobleader.http.response.CompanyAuthList;
 import com.boc.jobleader.http.response.CompanyBean;
+import com.boc.jobleader.module.login.LoginActivity;
 import com.boc.jobleader.module.mine.aboutme.AboutmeActivity;
 import com.boc.jobleader.module.mine.company.CompanyAuthActivity;
 import com.boc.jobleader.module.mine.help.HelpActivity;
 import com.boc.jobleader.module.mine.set.SettingActivity;
+import com.boc.jobleader.module.root.MainActivity;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
@@ -36,13 +39,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class AuthenticationActivity extends BaseActivity {
-
+    @Nullable
     @BindView(R.id.commonTitleBar)
     TitleBar mTitleBar;
-
+    @Nullable
     @BindView(R.id.companyStatus)
     TextView companyStatus;
-
+    @Nullable
     @BindView(R.id.companyView)
     ConstraintLayout companyView;
 
@@ -58,8 +61,8 @@ public class AuthenticationActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void onResume() {
+        super.onResume();
 
         MyApplication application = ActivityStackManager.getInstance().getApplication();
         application.changeAuthServer(application);
@@ -83,13 +86,25 @@ public class AuthenticationActivity extends BaseActivity {
                 });
 
 
+    }
 
+    @Override
+    protected void initView() {
+        super.initView();
 
         mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
 
             @Override
             public void onLeftClick(View v) {
-                finish();
+
+                MyApplication application = ActivityStackManager.getInstance().getApplication();
+                application.changeRootServer(application);
+
+                Intent intent = new Intent(application, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                application.startActivity(intent);
+                // 销毁除了登录之外的界面
+                ActivityStackManager.getInstance().finishAllActivities(MainActivity.class);
             }
 
             @Override

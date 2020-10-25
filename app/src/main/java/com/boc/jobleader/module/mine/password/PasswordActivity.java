@@ -1,5 +1,6 @@
 package com.boc.jobleader.module.mine.password;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -34,19 +35,19 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class PasswordActivity extends BaseActivity {
-
+    @Nullable
     @BindView(R.id.commonTitleBar)
     TitleBar mTitleBar;
-
+    @Nullable
     @BindView(R.id.old_password)
     PasswordEditText old_password;
-
+    @Nullable
     @BindView(R.id.new_password)
     PasswordEditText new_password;
-
+    @Nullable
     @BindView(R.id.again_password)
     PasswordEditText again_password;
-
+    @Nullable
     @BindView(R.id.okButton)
     Button okButton;
 
@@ -98,9 +99,15 @@ public class PasswordActivity extends BaseActivity {
                     return;
                 }
 
-
                 if (again_password.getText().toString().length() == 0) {
                     toast("请再次输入新密码");
+                    return;
+                }
+
+                if (old_password.getText().toString().length() < 6 ||
+                        old_password.getText().toString().length() < 6 ||
+                        old_password.getText().toString().length() < 6) {
+                    toast("请设置6位以上密码");
                     return;
                 }
 
@@ -110,6 +117,7 @@ public class PasswordActivity extends BaseActivity {
                 }
 
                 // 修改密码
+                showDialog();
                 EasyHttp.post(this)
                         .api(new UpdatePasswordApi()
                                 .setOldPassword(old_password.getText().toString())

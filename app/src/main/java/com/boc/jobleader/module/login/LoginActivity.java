@@ -1,12 +1,11 @@
 package com.boc.jobleader.module.login;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.text.TextPaint;
 import android.util.TypedValue;
 import android.view.View;
@@ -27,72 +26,83 @@ import com.boc.jobleader.http.request.CodeLoginApi;
 import com.boc.jobleader.http.request.GetAppAccessTokenApi;
 import com.boc.jobleader.http.request.GetCodeApi;
 import com.boc.jobleader.http.request.LoginApi;
-import com.boc.jobleader.http.request.RegisterApi;
 import com.boc.jobleader.http.response.AppAccessToken;
 import com.boc.jobleader.http.response.LoginBean;
-import com.boc.jobleader.http.response.RegisterBean;
 import com.boc.jobleader.module.forget.ForgetActivity;
-import com.boc.jobleader.module.mine.bind.BindActivity;
-import com.boc.jobleader.module.mine.personal.PersonalActivity;
 import com.boc.jobleader.module.register.RegisterActivity;
 import com.boc.jobleader.module.root.MainActivity;
+import com.boc.jobleader.wechat.Constants;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.http.EasyConfig;
 import com.hjq.http.EasyHttp;
 import com.hjq.http.listener.HttpCallback;
-import com.hjq.permissions.XXPermissions;
-import com.hjq.toast.ToastUtils;
-
-import java.util.List;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity {
 
+    @Nullable
     @BindView(R.id.register)
     TextView register;
 
+    @Nullable
     @BindView(R.id.passwordMode)
     TextView passwordMode;
 
+    @Nullable
     @BindView(R.id.messageMode)
     TextView messageMode;
 
     // 密码登录模式
+    @Nullable
     @BindView(R.id.passwordloginView)
     LinearLayout passwordloginView;
 
+    @Nullable
     @BindView(R.id.passwordPhoneInput)
     AppCompatEditText passwordPhoneInput;
 
+    @Nullable
     @BindView(R.id.passwordCodeInput)
     PasswordEditText passwordCodeInput;
 
+    @Nullable
     // 验证码登录模式
     @BindView(R.id.verifyloginView)
     LinearLayout verifyloginView;
 
+    @Nullable
     @BindView(R.id.verifyPhoneInput)
     AppCompatEditText verifyPhoneInput;
 
+    @Nullable
     @BindView(R.id.et_phone_reset_code)
     AppCompatEditText verfyCodeInput;
 
     // 发送验证码
+
+    @Nullable
     @BindView(R.id.cv_phone_reset_countdown)
     CountdownView mCountdownView;
 
-
+    @Nullable
     @BindView(R.id.forget)
     TextView forgetTextView;
 
+    @Nullable
     @BindView(R.id.loginButton)
     Button loginButton;
+
+    @Nullable
+    @BindView(R.id.imageView8)
+    ImageView mWeChatView;
 
 
     // 0: 密码，1: 验证码
     private int type = 0;
+
 
     @Override
     protected int getLayoutId() {
@@ -168,10 +178,15 @@ public class LoginActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         changeType(0);
+
+        Intent intent =getIntent();
+        /*取出Intent中附加的数据*/
+        String first = intent.getStringExtra("et1");
+        String second = intent.getStringExtra("et2");
     }
 
     @OnClick({R.id.register, R.id.passwordMode, R.id.messageMode, R.id.loginButton,
-        R.id.cv_phone_reset_countdown, R.id.forget})
+        R.id.cv_phone_reset_countdown, R.id.forget, R.id.imageView8})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.register:
@@ -216,7 +231,7 @@ public class LoginActivity extends BaseActivity {
                     return;
                 }
 
-
+                showDialog();
                 // 获取验证码
                 EasyHttp.post(this)
                         .api(new GetCodeApi()
@@ -236,7 +251,7 @@ public class LoginActivity extends BaseActivity {
                         });
                 break;
             case R.id.loginButton:
-
+                hideSoftKeyboard();
                 if (type == 0) {
                     //密码登录模式
                     if (passwordPhoneInput.getText().toString().length() == 0) {
@@ -253,6 +268,7 @@ public class LoginActivity extends BaseActivity {
                         toast(R.string.common_password_input_error);
                         return;
                     }
+                    showDialog();
                     // 用户名密码登录
                     EasyHttp.post(this)
                             .api(new LoginApi()
@@ -304,7 +320,7 @@ public class LoginActivity extends BaseActivity {
                         toast(R.string.common_code_input_hint);
                         return;
                     }
-
+                    showDialog();
                     // 验证码登录
                     EasyHttp.post(this)
                             .api(new CodeLoginApi()
@@ -338,20 +354,28 @@ public class LoginActivity extends BaseActivity {
                                     ActivityStackManager.getInstance().finishAllActivities(MainActivity.class);
                                 }
                             });
-
-
                 }
-
-
-
-
-
-
-
-
-
                 break;
-
+            case R.id.imageView8:
+                // 判断用户当前有没有安装微信
+                wake();
+                break;
         }
     }
+
+    public void wake() {
+        // send oauth request
+
+        if( !Constants.wx_api.isWXAppInstalled() ) {
+            toast("您的设备未安装微信客户端");
+        } else {
+            final SendAuth.Req req = new SendAuth.Req();
+            req.scope = "snsapi_userinfo";
+            req.state = "wechat_sdk_demo_test";
+            Constants.wx_api.sendReq(req);
+        }
+
+
+    }
+
 }

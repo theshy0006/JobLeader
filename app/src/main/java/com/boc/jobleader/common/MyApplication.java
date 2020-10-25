@@ -17,12 +17,17 @@ import com.boc.jobleader.http.server.ReleaseServer;
 import com.boc.jobleader.http.server.TestServer;
 import com.boc.jobleader.http.server.UpdateServer;
 import com.boc.jobleader.http.server.UserServer;
+import com.boc.jobleader.wechat.Constants;
 import com.hjq.bar.TitleBar;
 import com.hjq.bar.initializer.LightBarInitializer;
 import com.hjq.http.EasyConfig;
 import com.hjq.http.config.IRequestServer;
 import com.hjq.toast.ToastInterceptor;
 import com.hjq.toast.ToastUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import androidx.lifecycle.Lifecycle;
 
@@ -48,6 +53,11 @@ public class MyApplication extends Application implements LifecycleOwner {
 
         // 初始化 TitleBar
         TitleBar.setDefaultInitializer(new LightBarInitializer());
+
+        // 通过WXAPIFactory工厂，获取IWXAPI的实例
+        Constants.wx_api = WXAPIFactory.createWXAPI(getApplicationContext(), Constants.APP_ID, true);
+        // 将应用的appId注册到微信
+        Constants.wx_api.registerApp(Constants.APP_ID);
     }
 
     /**
@@ -70,11 +80,10 @@ public class MyApplication extends Application implements LifecycleOwner {
                 return intercept;
             }
         });
-
-        // 友盟统计、登录、分享 SDK
-        //UmengClient.init(application);
-
-
+        // 设置全局的 Header 构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> new ClassicsHeader(context).setEnableLastTime(false));
+        // 设置全局的 Footer 构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> new ClassicsFooter(context).setDrawableSize(20));
         // Activity 栈管理初始化
         ActivityStackManager.getInstance().init(application);
 

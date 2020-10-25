@@ -1,5 +1,6 @@
 package com.boc.jobleader.module.mine.changemobile;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -44,23 +45,23 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ChangeMobileActivity extends BaseActivity {
-
+    @Nullable
     @BindView(R.id.commonTitleBar)
     TitleBar mTitleBar;
-
+    @Nullable
     @BindView(R.id.textView14)
     TextView oldPhone;
-
+    @Nullable
     @BindView(R.id.verifyPhoneInput)
     AppCompatEditText verifyPhoneInput;
-
+    @Nullable
     @BindView(R.id.veryfyCodeInput)
     AppCompatEditText veryfyCodeInput;
-
+    @Nullable
     // 发送验证码
     @BindView(R.id.sendCodeButton)
     CountdownView mCountdownView;
-
+    @Nullable
     @BindView(R.id.okButton)
     Button okButton;
 
@@ -117,7 +118,7 @@ public class ChangeMobileActivity extends BaseActivity {
                     return;
                 }
 
-
+                showDialog();
                 // 获取验证码
                 EasyHttp.post(this)
                         .api(new GetCodeApi()
@@ -154,7 +155,7 @@ public class ChangeMobileActivity extends BaseActivity {
                     toast(R.string.common_code_input_hint);
                     return;
                 }
-
+                showDialog();
                 // 更新手机号
                 EasyHttp.post(this)
                         .api(new ChangeMobileApi()

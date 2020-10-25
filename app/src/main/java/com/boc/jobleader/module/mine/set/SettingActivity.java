@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.Nullable;
+
 import com.boc.jobleader.R;
 import com.boc.jobleader.base.BaseActivity;
 import com.boc.jobleader.base.BaseDialog;
@@ -38,24 +40,21 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class SettingActivity extends BaseActivity {
-
+    @Nullable
     @BindView(R.id.commonTitleBar)
     TitleBar mTitleBar;
-
+    @Nullable
     @BindView(R.id.jobsearchView)
     SettingBar personalBar;
-
+    @Nullable
     @BindView(R.id.account)
     SettingBar accountBar;
-
+    @Nullable
     @BindView(R.id.clearContent)
     SettingBar clearContent;
-
+    @Nullable
     @BindView(R.id.logoutButton)
     Button logoutButton;
-
-
-
 
     @Override
     protected int getLayoutId() {
@@ -139,6 +138,7 @@ public class SettingActivity extends BaseActivity {
                         .show();
                 break;
             case R.id.logoutButton:
+                showDialog();
                 EasyHttp.post(this)
                         .api(new LogoutApi())
                         .request(new HttpCallback<HttpData<LogoutBean>>(this) {

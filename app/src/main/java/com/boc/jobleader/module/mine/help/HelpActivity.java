@@ -1,5 +1,6 @@
 package com.boc.jobleader.module.mine.help;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -28,7 +29,7 @@ import butterknife.ButterKnife;
 
 
 public class HelpActivity extends BaseActivity {
-
+    @Nullable
     @BindView(R.id.commonTitleBar)
     TitleBar mTitleBar;
 

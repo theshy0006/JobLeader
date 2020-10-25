@@ -1,2 +1,3 @@
+include ':umeng'
 include ':app'
 rootProject.name = "JobLeader"

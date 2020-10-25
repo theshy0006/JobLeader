@@ -1,5 +1,6 @@
 package com.boc.jobleader.module.mine.personal;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -53,19 +54,19 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class PersonalActivity extends BaseActivity {
-
+    @Nullable
     @BindView(R.id.commonTitleBar)
     TitleBar mTitleBar;
-
+    @Nullable
     @BindView(R.id.imageView2)
     ImageView headerImageView;
-
+    @Nullable
     @BindView(R.id.name)
     SettingBar nameBar;
-
+    @Nullable
     @BindView(R.id.sex)
     SettingBar sexBar;
-
+    @Nullable
     @BindView(R.id.brithday)
     SettingBar brithdayBar;
 
@@ -91,7 +92,7 @@ public class PersonalActivity extends BaseActivity {
         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
         String nickname =  settings.getString("nickname", "").toString();
         String avator =  settings.getString("avator", "").toString();
-        String brithday =  settings.getString("brithday", "").toString();
+        String brithday =  settings.getString("brithday", "").toString().substring(0,10);
         Integer gender =  settings.getInt("gender", 0);
         headerUrl = avator;
         nameBar.setRightText(nickname);
@@ -166,9 +167,15 @@ public class PersonalActivity extends BaseActivity {
                         .setContent(nameBar.getRightText().toString())
                         .setListener((dialog, content) -> {
                             if (!nameBar.getRightText().equals(content)) {
-                                nameBar.setRightText(content);
-
-                                updateNickName(content);
+                                if( content.length() >= 10 ) {
+                                    nameBar.setRightText(content.substring(0,10));
+                                    updateNickName(content.substring(0,10));
+                                } else if ( content.length() == 0 ) {
+                                    toast("昵称不可为空");
+                                } else {
+                                    nameBar.setRightText(content);
+                                    updateNickName(content);
+                                }
                             }
                         })
                         .show();
@@ -268,12 +275,6 @@ public class PersonalActivity extends BaseActivity {
                         @Override
                         public void onSucceed(HttpData<UpdateImageBean> data) {
                             headerUrl = data.getData().getUrl().toString();
-                            Glide.with(PersonalActivity.this)
-                                    .load(headerUrl)
-                                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                                    .into(headerImageView);
-
-
                             SharedPreferences settings = getSharedPreferences("UserInfo", 0);
                             SharedPreferences.Editor editor = settings.edit();
                             editor.putString("avator",headerUrl);
@@ -303,6 +304,7 @@ public class PersonalActivity extends BaseActivity {
     }
 
     public void updateNickName(String nickName) {
+        showDialog();
         MyApplication application = ActivityStackManager.getInstance().getApplication();
         application.changeUserServer(application);
         EasyHttp.post(this)
@@ -322,6 +324,7 @@ public class PersonalActivity extends BaseActivity {
     }
 
     public void updateSex(Integer sex) {
+        showDialog();
         MyApplication application = ActivityStackManager.getInstance().getApplication();
         application.changeUserServer(application);
         EasyHttp.post(this)
@@ -341,6 +344,7 @@ public class PersonalActivity extends BaseActivity {
     }
 
     public void updateBrithday(String brithday) {
+        showDialog();
         MyApplication application = ActivityStackManager.getInstance().getApplication();
         application.changeUserServer(application);
         EasyHttp.post(this)

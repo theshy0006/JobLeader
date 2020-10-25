@@ -1,5 +1,6 @@
 package com.boc.jobleader.module.forget;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import android.content.Intent;
@@ -27,22 +28,22 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ForgetActivity extends BaseActivity {
-
+    @Nullable
     @BindView(R.id.back)
     ImageView back;
-
+    @Nullable
     @BindView(R.id.cv_phone_reset_countdown)
     CountdownView mCountdownView;
-
+    @Nullable
     @BindView(R.id.verifyPhoneInput)
     RegexEditText phoneEditText;
-
+    @Nullable
     @BindView(R.id.et_phone_reset_code)
     AppCompatEditText codeEditText;
-
+    @Nullable
     @BindView(R.id.passwordCodeInput)
     PasswordEditText passwordEditText;
-
+    @Nullable
     @BindView(R.id.loginButton)
     Button loginButton;
 
@@ -85,6 +86,7 @@ public class ForgetActivity extends BaseActivity {
 
 
                 // 获取验证码
+                showDialog();
                 EasyHttp.post(this)
                         .api(new GetCodeApi()
                                 .setPhone(phoneEditText.getText().toString()))
@@ -126,6 +128,7 @@ public class ForgetActivity extends BaseActivity {
                 }
 
                 // 提交注册
+                showDialog();
                 EasyHttp.post(this)
                         .api(new ForgetPasswordApi()
                                 .setPhone(phoneEditText.getText().toString())

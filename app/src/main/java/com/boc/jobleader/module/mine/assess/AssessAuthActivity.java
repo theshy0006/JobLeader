@@ -1,5 +1,6 @@
 package com.boc.jobleader.module.mine.assess;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import com.hjq.bar.TitleBar;
 import butterknife.BindView;
 
 public class AssessAuthActivity extends BaseActivity {
-
+    @Nullable
     @BindView(R.id.commonTitleBar)
     TitleBar mTitleBar;
 

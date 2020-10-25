@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import com.boc.jobleader.R;
@@ -29,16 +30,16 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MineFragment extends BaseFragment {
-
+    @Nullable
     @BindView(R.id.settingButton)
     ImageView setImageView;
-
+    @Nullable
     @BindView(R.id.sb_setting_authentication)
     SettingBar setBar;
-
+    @Nullable
     @BindView(R.id.userName)
     TextView userName;
-
+    @Nullable
     @BindView(R.id.imageView3)
     ImageView mAvatarView;
 
