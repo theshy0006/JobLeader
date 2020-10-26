@@ -262,11 +262,11 @@ public class CompanyAuthActivity extends BaseActivity {
                                 if (data.getCode() == 500) {
                                     //失败
                                     Intent intent = new Intent(CompanyAuthActivity.this, AuthStatusActivity.class);
-                                    intent.putExtra("type", 1);
+                                    intent.putExtra("type", 2);
                                     startActivity(intent);
                                 } else if (data.getMessage().contains("审核中")) {
                                     Intent intent = new Intent(CompanyAuthActivity.this, AuthStatusActivity.class);
-                                    intent.putExtra("type", 2);
+                                    intent.putExtra("type", 1);
                                     startActivity(intent);
                                 } else {
                                     Intent intent = new Intent(CompanyAuthActivity.this, AuthStatusActivity.class);

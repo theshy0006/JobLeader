@@ -58,15 +58,15 @@ public class AuthStatusActivity extends BaseActivity {
             title.setText("认证成功");
             content.setText("恭喜你，身份认证已通过");
         } else if( type == 1 ){
-            imageView.setImageResource(R.mipmap.icon_tips_fail);
+            imageView.setImageResource(R.mipmap.icon_tips_review);
             title.setText("审核中");
             content.setText("提交成功，等待审核中");
         } else if( type == 2 ){
-            imageView.setImageResource(R.mipmap.icon_tips_review);
+            imageView.setImageResource(R.mipmap.icon_tips_fail);
             title.setText("认证失败");
             content.setText("认证失败，请重新认证");
         } else if( type == 3 ){
-            imageView.setImageResource(R.mipmap.icon_tips_review);
+            imageView.setImageResource(R.mipmap.icon_tips_success);
             title.setText("审核成功");
             content.setText("恭喜您，身份审核已通过");
         } else if( type == 4 ){
@@ -74,7 +74,7 @@ public class AuthStatusActivity extends BaseActivity {
             title.setText("审核中");
             content.setText("提交成功，等待审核中");
         } else if( type == 5 ){
-            imageView.setImageResource(R.mipmap.icon_tips_review);
+            imageView.setImageResource(R.mipmap.icon_tips_fail);
             title.setText("审核失败");
             content.setText("审核失败，请您重新提交");
         }

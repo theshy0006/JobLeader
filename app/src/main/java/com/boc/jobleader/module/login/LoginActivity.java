@@ -26,8 +26,10 @@ import com.boc.jobleader.http.request.CodeLoginApi;
 import com.boc.jobleader.http.request.GetAppAccessTokenApi;
 import com.boc.jobleader.http.request.GetCodeApi;
 import com.boc.jobleader.http.request.LoginApi;
+import com.boc.jobleader.http.request.ThirdLoginApi;
 import com.boc.jobleader.http.response.AppAccessToken;
 import com.boc.jobleader.http.response.LoginBean;
+import com.boc.jobleader.module.bindwechat.BindWeChatActivity;
 import com.boc.jobleader.module.forget.ForgetActivity;
 import com.boc.jobleader.module.register.RegisterActivity;
 import com.boc.jobleader.module.root.MainActivity;
@@ -40,6 +42,7 @@ import com.tencent.mm.opensdk.modelmsg.SendAuth;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 public class LoginActivity extends BaseActivity {
 
@@ -179,10 +182,6 @@ public class LoginActivity extends BaseActivity {
         super.initView();
         changeType(0);
 
-        Intent intent =getIntent();
-        /*取出Intent中附加的数据*/
-        String first = intent.getStringExtra("et1");
-        String second = intent.getStringExtra("et2");
     }
 
     @OnClick({R.id.register, R.id.passwordMode, R.id.messageMode, R.id.loginButton,
@@ -292,9 +291,9 @@ public class LoginActivity extends BaseActivity {
                                     editor.putString("avator",data.getData().getUser().getAvator().toString());
                                     editor.putInt("gender",data.getData().getUser().getGender());
                                     editor.putString("brithday",data.getData().getUser().getBirthdate());
-
+                                    editor.putString("inviterUserPid",data.getData().getUser().getInviterUserPid().toString());
                                     editor.commit();
-
+                                    Constants.openId = "";
                                     Application application = ActivityStackManager.getInstance().getApplication();
                                     Intent intent = new Intent(application, MainActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -344,8 +343,9 @@ public class LoginActivity extends BaseActivity {
                                     editor.putString("avator",data.getData().getUser().getAvator().toString());
                                     editor.putInt("gender",data.getData().getUser().getGender());
                                     editor.putString("brithday",data.getData().getUser().getBirthdate());
+                                    editor.putString("inviterUserPid",data.getData().getUser().getInviterUserPid().toString());
                                     editor.commit();
-
+                                    Constants.openId = "";
                                     Application application = ActivityStackManager.getInstance().getApplication();
                                     Intent intent = new Intent(application, MainActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -357,7 +357,6 @@ public class LoginActivity extends BaseActivity {
                 }
                 break;
             case R.id.imageView8:
-                // 判断用户当前有没有安装微信
                 wake();
                 break;
         }
@@ -374,8 +373,72 @@ public class LoginActivity extends BaseActivity {
             req.state = "wechat_sdk_demo_test";
             Constants.wx_api.sendReq(req);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Constants.openId != "") {
+            EasyHttp.post(this)
+                    .api(new ThirdLoginApi()
+                            .setProviderId("wechat")
+                            .setProviderUserId(Constants.openId))
+                    .request(new HttpCallback<HttpData<LoginBean>>(this) {
+
+                        @Override
+                        public void onSucceed(HttpData<LoginBean> data) {
+
+                            if (data.getCode() == 500) {
+                                // 未绑定
+                            } else {
+                                super.onSucceed(data);
+                                EasyConfig.getInstance().addParam("token",data.getData().getAccessToken().getAccessToken().toString());
+                                EasyConfig.getInstance().addHeader("token",data.getData().getAccessToken().getAccessToken().toString());
 
 
+                                SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+                                SharedPreferences.Editor editor = settings.edit();
+                                editor.putString("token",data.getData().getAccessToken().getAccessToken().toString());
+                                editor.putString("userName",data.getData().getUser().getUserName().toString());
+                                editor.putString("phone",data.getData().getUser().getPhone().toString());
+                                editor.putString("nickname",data.getData().getUser().getNickname().toString());
+                                editor.putString("avator",data.getData().getUser().getAvator().toString());
+                                editor.putInt("gender",data.getData().getUser().getGender());
+                                editor.putString("brithday",data.getData().getUser().getBirthdate());
+                                editor.putString("inviterUserPid",data.getData().getUser().getInviterUserPid().toString());
+                                editor.commit();
+                                Constants.openId = "";
+                                Application application = ActivityStackManager.getInstance().getApplication();
+                                Intent intent = new Intent(application, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                application.startActivity(intent);
+                                // 销毁除了首页之外的界面
+                                ActivityStackManager.getInstance().finishAllActivities(MainActivity.class);
+                            }
+                        }
+                    });
+
+
+        }
+    }
+
+    @Override
+    public void onFail(Exception e) {
+        hideDialog();
+        if (e.getMessage().contains("未绑定")) {
+            startActivityForResult(BindWeChatActivity.class, (resultCode, data) -> {
+                // 如果已经注册成功，就执行登录操作
+                if (resultCode == RESULT_OK && data != null) {
+                    Constants.openId = "";
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onEnd(Call call) {
+
+        hideDialog();
     }
 
 }

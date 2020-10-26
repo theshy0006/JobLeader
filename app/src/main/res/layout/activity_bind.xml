@@ -32,7 +32,7 @@
         app:bar_rightIcon="@mipmap/icon_arrow_right" />
 
     <com.boc.jobleader.custom.SettingBar
-        android:id="@+id/brithday"
+        android:id="@+id/wechat"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:bar_leftText="绑定微信"

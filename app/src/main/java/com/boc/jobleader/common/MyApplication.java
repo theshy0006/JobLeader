@@ -55,7 +55,7 @@ public class MyApplication extends Application implements LifecycleOwner {
         TitleBar.setDefaultInitializer(new LightBarInitializer());
 
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
-        Constants.wx_api = WXAPIFactory.createWXAPI(getApplicationContext(), Constants.APP_ID, true);
+        Constants.wx_api = WXAPIFactory.createWXAPI(getApplicationContext(), Constants.APP_ID, false);
         // 将应用的appId注册到微信
         Constants.wx_api.registerApp(Constants.APP_ID);
     }

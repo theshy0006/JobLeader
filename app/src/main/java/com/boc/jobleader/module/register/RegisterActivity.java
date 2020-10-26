@@ -34,7 +34,7 @@ import butterknife.OnClick;
 
 public class RegisterActivity extends BaseActivity {
     @Nullable
-    @BindView(R.id.back)
+    @BindView(R.id.back2)
     ImageView back;
     @Nullable
     @BindView(R.id.cv_phone_reset_countdown)
@@ -82,11 +82,11 @@ public class RegisterActivity extends BaseActivity {
         super.initView();
     }
 
-    @OnClick({R.id.back, R.id.cv_phone_reset_countdown, R.id.agreeLabel, R.id.checkImage,
-            R.id.registerButton, R.id.et_phone_reset_code, R.id.passwordCodeInput, R.id.forget2})
+    @OnClick({R.id.back2, R.id.cv_phone_reset_countdown, R.id.agreeLabel, R.id.checkImage,
+            R.id.registerButton, R.id.et_phone_reset_code, R.id.forget2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.back:
+            case R.id.back2:
                 finish();
                 break;
             case R.id.agreeLabel:

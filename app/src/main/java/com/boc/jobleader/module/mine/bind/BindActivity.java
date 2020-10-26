@@ -36,7 +36,9 @@ public class BindActivity extends BaseActivity {
     @Nullable
     @BindView(R.id.phone)
     SettingBar phoneBar;
-
+    @Nullable
+    @BindView(R.id.wechat)
+    SettingBar wechatBar;
 
     @Override
     protected int getLayoutId() {
@@ -56,9 +58,17 @@ public class BindActivity extends BaseActivity {
 
         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
         String nickname =  settings.getString("nickname", "").toString();
+        String inviterUserPid =  settings.getString("inviterUserPid", "").toString();
         String phone =  settings.getString("phone", "").toString();
         String maskNumber = phone.substring(0,3)+"****"+phone.substring(7,phone.length());
         phoneBar.setRightText(maskNumber);
+
+
+        if (inviterUserPid.length() != 0) {
+            wechatBar.setRightText("已绑定");
+        } else {
+            wechatBar.setRightText("未绑定");
+        }
 
         mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
 
