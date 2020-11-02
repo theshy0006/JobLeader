@@ -24,6 +24,7 @@ import com.boc.jobleader.module.root.MainActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,7 +53,7 @@ public class MineFragment extends BaseFragment {
     protected void initView() {
         super.initView();
         // 不使用图标默认变色
-
+        ImmersionBar.with(this).titleBar(R.id.tb_home_title).statusBarDarkFont(false).init();
     }
 
     @OnClick({R.id.settingButton, R.id.sb_setting_authentication,

@@ -14,16 +14,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.boc.jobleader.R;
+import com.boc.jobleader.action.HandlerAction;
+import com.boc.jobleader.action.ToastAction;
+import com.boc.jobleader.custom.WaitDialog;
+import com.boc.jobleader.http.model.HttpData;
 import com.gyf.immersionbar.ImmersionBar;
+import com.hjq.http.listener.OnHttpListener;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
+import okhttp3.Call;
 
 
 // BaseFragment适合用在Activity做沉浸式（fragment+viewpaper）
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements OnHttpListener, ToastAction {
 
     Unbinder unbinder;
 
@@ -66,6 +71,7 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         statusBarView = view.findViewById(R.id.status_bar_view);
         toolbar = view.findViewById(R.id.toolbar);
+
         fitsLayoutOverlap();
         initData();
         initView();
@@ -82,7 +88,6 @@ public abstract class BaseFragment extends Fragment {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         //旋转屏幕为什么要重新设置布局与状态栏重叠呢？因为旋转屏幕有可能使状态栏高度不一样，如果你是使用的静态方法修复的，所以要重新调用修复
-        fitsLayoutOverlap();
     }
 
     protected void initDataBeforeView(Bundle savedInstanceState) {
@@ -117,6 +122,10 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
+    public void initImmersionBar() {
+        ImmersionBar.with(this).keyboardEnable(true).init();
+    }
+
     private void fitsLayoutOverlap() {
         if (statusBarView != null) {
             ImmersionBar.setStatusBarView(this, statusBarView);
@@ -125,4 +134,23 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStart(Call call) {
+    }
+
+    @Override
+    public void onSucceed(Object result) {
+        if (result instanceof HttpData) {
+            toast(((HttpData) result).getMessage());
+        }
+    }
+
+    @Override
+    public void onFail(Exception e) {
+        toast(e.getMessage());
+    }
+
+    @Override
+    public void onEnd(Call call) {
+    }
 }

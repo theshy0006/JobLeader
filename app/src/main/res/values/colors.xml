@@ -7,6 +7,7 @@
     <color name="colorBarText">#F0F5E5</color>
 
     <color name="tabbarFontSelectColor">#3AA7FF</color>
+    <color name="thinblue">#e9f6FF</color>
     <color name="tabbarFontNormalColor">#8a8a8a</color>
 
     <color name="orderTextColor">#c0787f</color>

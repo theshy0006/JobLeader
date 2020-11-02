@@ -77,7 +77,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mViewPager.setAdapter(myAdapter);
         mViewPager.setOffscreenPageLimit(myAdapter.getCount());
         mViewPager.addOnPageChangeListener(this);
-        mViewPager.setCurrentItem(4);
     }
 
     @Override

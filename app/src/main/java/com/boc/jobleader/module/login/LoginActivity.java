@@ -405,7 +405,7 @@ public class LoginActivity extends BaseActivity {
                                 editor.putString("avator",data.getData().getUser().getAvator().toString());
                                 editor.putInt("gender",data.getData().getUser().getGender());
                                 editor.putString("brithday",data.getData().getUser().getBirthdate());
-                                editor.putString("inviterUserPid",data.getData().getUser().getInviterUserPid().toString());
+                                editor.putString("inviterUserPid",Constants.openId);
                                 editor.commit();
                                 Constants.openId = "";
                                 Application application = ActivityStackManager.getInstance().getApplication();
