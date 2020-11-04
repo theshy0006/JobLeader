@@ -31,6 +31,7 @@ import com.boc.jobleader.R;
 import com.boc.jobleader.dialog.HintDialog;
 import com.boc.jobleader.dialog.InputDialog;
 import com.boc.jobleader.dialog.MessageDialog;
+import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
@@ -54,13 +55,12 @@ public final class BrowserView extends WebView implements ActivityAction {
         this(context, attrs, android.R.attr.webViewStyle);
     }
 
-    public BrowserView(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(getFixedContext(context), attrs, defStyleAttr, 0);
-    }
-
     @SuppressLint("SetJavaScriptEnabled")
-    public BrowserView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+
+
+
+    public BrowserView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
 
         WebSettings settings = getSettings();
         // 允许文件访问

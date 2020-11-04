@@ -151,10 +151,10 @@ public class AboutmeActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.userPravicy:
-                BrowserActivity.start(this, "https://www.buick.com.cn/privacy.html");
+                BrowserActivity.start(this, "http://122.192.73.178:8082/jobleader/#/pages/agreement/private");
                 break;
             case R.id.userAgree:
-                BrowserActivity.start(this, "https://in.m.jd.com/help/app/register_info.html");
+                BrowserActivity.start(this, "http://122.192.73.178:8082/jobleader/#/pages/agreement/agreement");
                 break;
 
             case R.id.versionUpdate:

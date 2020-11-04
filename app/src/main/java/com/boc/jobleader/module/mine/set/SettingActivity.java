@@ -16,7 +16,6 @@ import com.boc.jobleader.custom.SettingBar;
 import com.boc.jobleader.dialog.MessageDialog;
 import com.boc.jobleader.help.ActivityStackManager;
 import com.boc.jobleader.help.CacheDataManager;
-import com.boc.jobleader.http.glide.GlideApp;
 import com.boc.jobleader.http.model.HttpData;
 import com.boc.jobleader.http.request.LoginApi;
 import com.boc.jobleader.http.request.LogoutApi;
@@ -27,6 +26,7 @@ import com.boc.jobleader.module.mine.bind.BindActivity;
 import com.boc.jobleader.module.mine.changemobile.ChangeMobileActivity;
 import com.boc.jobleader.module.mine.personal.PersonalActivity;
 import com.boc.jobleader.module.root.MainActivity;
+import com.bumptech.glide.Glide;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
@@ -118,11 +118,11 @@ public class SettingActivity extends BaseActivity {
                             @Override
                             public void onConfirm(BaseDialog dialog) {
                                 // 清除内存缓存（必须在主线程）
-                                GlideApp.get(SettingActivity.this).clearMemory();
+                                Glide.get(SettingActivity.this).clearMemory();
                                 new Thread(() -> {
                                     CacheDataManager.clearAllCache(SettingActivity.this);
                                     // 清除本地缓存（必须在子线程）
-                                    GlideApp.get(SettingActivity.this).clearDiskCache();
+                                    Glide.get(SettingActivity.this).clearDiskCache();
                                     post(() -> {
                                         // 重新获取应用缓存大小
                                         clearContent.setRightText(CacheDataManager.getTotalCacheSize(SettingActivity.this));

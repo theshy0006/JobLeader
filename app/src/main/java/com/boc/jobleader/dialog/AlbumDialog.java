@@ -14,7 +14,7 @@ import com.boc.jobleader.base.BaseAdapter;
 import com.boc.jobleader.base.BaseDialog;
 import com.boc.jobleader.R;
 import com.boc.jobleader.base.MyAdapter;
-import com.boc.jobleader.http.glide.GlideApp;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -122,7 +122,7 @@ public final class AlbumDialog {
             public void onBindView(int position) {
                 AlbumInfo info = getItem(position);
 
-                GlideApp.with(getContext())
+                Glide.with(getContext())
                         .load(info.getIcon())
                         .into(mIconView);
 

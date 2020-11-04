@@ -12,6 +12,8 @@ import com.boc.jobleader.base.MyActivity;
 import com.boc.jobleader.http.other.IntentKey;
 import com.boc.jobleader.widget.BrowserView;
 import com.boc.jobleader.widget.HintLayout;
+import com.github.lzyzsd.jsbridge.BridgeHandler;
+import com.github.lzyzsd.jsbridge.CallBackFunction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -71,7 +73,12 @@ public final class BrowserActivity extends MyActivity
 
         mBrowserView.setBrowserViewClient(new MyBrowserViewClient());
         mBrowserView.setBrowserChromeClient(new MyBrowserChromeClient(mBrowserView));
-
+//        mBrowserView.registerHandler("saveService", new BridgeHandler() {
+//            @Override
+//            public void handler(String data, CallBackFunction function) {
+//                System.out.println(data);
+//            }
+//        });
         String url = getString(IntentKey.URL);
         mBrowserView.loadUrl(url);
     }

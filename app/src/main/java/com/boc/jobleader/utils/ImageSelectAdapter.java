@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.boc.jobleader.R;
 import com.boc.jobleader.base.MyAdapter;
-import com.boc.jobleader.http.glide.GlideApp;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -50,7 +50,7 @@ public final class ImageSelectAdapter extends MyAdapter<String> {
         @Override
         public void onBindView(int position) {
             String imagePath = getItem(position);
-            GlideApp.with(getContext())
+            Glide.with(getContext())
                     .load(imagePath)
                     .into(mImageView);
 

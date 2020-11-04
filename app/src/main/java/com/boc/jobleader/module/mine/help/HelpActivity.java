@@ -1,31 +1,20 @@
 package com.boc.jobleader.module.mine.help;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Bundle;
 import android.view.View;
 
 import com.boc.jobleader.R;
 import com.boc.jobleader.base.BaseActivity;
 import com.boc.jobleader.base.BaseFragment;
 import com.boc.jobleader.base.BaseFragmentAdapter;
-import com.boc.jobleader.module.home.HomeFragment;
-import com.boc.jobleader.module.job.JobFragment;
-import com.boc.jobleader.module.message.MessageFragment;
-import com.boc.jobleader.module.mine.MineFragment;
-import com.boc.jobleader.module.workspace.WorkspaceFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
 
-import java.util.ArrayList;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class HelpActivity extends BaseActivity {

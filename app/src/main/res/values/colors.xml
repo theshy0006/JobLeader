@@ -97,4 +97,11 @@
     <!-- 对话框取消按钮文本颜色 -->
     <color name="colorCancel">#999999</color>
 
+    <color name="btn1">#F0F9F0</color>
+    <color name="btn2">#EDF6FF</color>
+    <color name="btn3">#FFF9F6</color>
+    <color name="btn4">#FFEEEE</color>
+    <color name="btn5">#F2F4F5</color>
+
+
 </resources>

@@ -56,13 +56,14 @@ public abstract class BaseFragment extends Fragment implements OnHttpListener, T
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = inflater.inflate(getLayoutId(), container, false);
-            unbinder = ButterKnife.bind(this, mRootView);
+
         } else {
             ViewGroup viewGroup = (ViewGroup) mRootView.getParent();
             if (viewGroup != null) {
                 viewGroup.removeView(mRootView);
             }
         }
+        unbinder = ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 

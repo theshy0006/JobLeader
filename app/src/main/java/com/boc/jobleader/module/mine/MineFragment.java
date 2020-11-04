@@ -14,7 +14,6 @@ import com.boc.jobleader.base.BaseFragment;
 import com.boc.jobleader.common.MyApplication;
 import com.boc.jobleader.custom.SettingBar;
 import com.boc.jobleader.help.ActivityStackManager;
-import com.boc.jobleader.http.glide.GlideApp;
 import com.boc.jobleader.module.mine.aboutme.AboutmeActivity;
 import com.boc.jobleader.module.mine.authentication.AuthenticationActivity;
 import com.boc.jobleader.module.mine.help.HelpActivity;

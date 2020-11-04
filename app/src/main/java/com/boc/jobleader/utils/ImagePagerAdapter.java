@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.boc.jobleader.aop.SingleClick;
-import com.boc.jobleader.http.glide.GlideApp;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public final class ImagePagerAdapter extends PagerAdapter
         PhotoView view = new PhotoView(mActivity);
         view.setOnClickListener(this);
 
-        GlideApp.with(container.getContext())
+        Glide.with(container.getContext())
                 .load(mData.get(position))
                 .into(view);
 

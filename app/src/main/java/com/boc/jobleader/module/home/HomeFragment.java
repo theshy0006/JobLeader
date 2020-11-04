@@ -3,12 +3,10 @@ package com.boc.jobleader.module.home;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -25,17 +23,14 @@ import com.boc.jobleader.common.MyApplication;
 import com.boc.jobleader.help.ActivityStackManager;
 import com.boc.jobleader.http.model.HttpData;
 import com.boc.jobleader.http.request.BannerApi;
-import com.boc.jobleader.http.request.GetAppAccessTokenApi;
-import com.boc.jobleader.http.response.AppAccessToken;
 import com.boc.jobleader.http.response.BannerBean;
 import com.boc.jobleader.http.response.BannerModel;
+import com.boc.jobleader.module.home.search.SearchActivity;
 import com.boc.jobleader.module.message.ApplyFragment;
 import com.boc.jobleader.module.mine.aboutme.AboutmeActivity;
 import com.boc.jobleader.module.mine.authentication.AuthenticationActivity;
-import com.boc.jobleader.module.mine.company.CompanyAuthActivity;
-import com.boc.jobleader.module.mine.help.HelpActivity;
-import com.boc.jobleader.module.mine.personal.PersonalActivity;
 import com.boc.jobleader.module.mine.set.SettingActivity;
+import com.boc.jobleader.module.sbweb.SBWebActivity;
 import com.boc.jobleader.widget.TextSwitchView;
 import com.boc.jobleader.widget.XCollapsingToolbarLayout;
 import com.bumptech.glide.Glide;
@@ -43,9 +38,11 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.gyf.immersionbar.ImmersionBar;
-import com.hjq.http.EasyConfig;
 import com.hjq.http.EasyHttp;
 import com.hjq.http.listener.HttpCallback;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -72,11 +69,18 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
     @Nullable
     @BindView(R.id.tv_home_address)
     TextView mAddressView;
+
+    @Nullable
+    @BindView(R.id.searchLinaer)
+    LinearLayout searchLinaer;
+
     @Nullable
     @BindView(R.id.tv_home_hint)
     AppCompatTextView mHintView;
+
+
     @Nullable
-    @BindView(R.id.iv_home_search)
+    @BindView(R.id.iv_home_scan)
     AppCompatImageView mSearchView;
     @Nullable
     @BindView(R.id.tl_home_tab)
@@ -93,11 +97,13 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
     @Nullable
     @BindView(R.id.ll_item)
     LinearLayout ll_item;
+    @Nullable
+    @BindView(R.id.moreImageView)
+    ImageView moreImageView;
 
     private ArrayList list_path;
     private ArrayList list_title;
     private List<BannerModel> dataSource;
-
 
     private int curStr;
 
@@ -111,6 +117,26 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
     @Override
     protected void initData() {
         super.initData();
+
+        XXPermissions.with(getActivity())
+                .permission(Permission.READ_EXTERNAL_STORAGE)
+                .permission(Permission.WRITE_EXTERNAL_STORAGE)
+                .permission(Permission.ACCESS_COARSE_LOCATION)
+                .permission(Permission.CAMERA)
+
+                .request(new OnPermission() {
+
+                    @Override
+                    public void hasPermission(List<String> granted, boolean all) {
+                    }
+
+                    @Override
+                    public void noPermission(List<String> denied, boolean never) {
+                    }
+                });
+
+
+
         // 连接root服务器获取appAccessToken
         MyApplication application = ActivityStackManager.getInstance().getApplication();
         application.changeRootServer(application);
@@ -148,7 +174,6 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
                 "内地明年大学毕业生数量将创新高"};
         textSwitcher1.setResources(autoRes);
         textSwitcher1.setTextStillTime(3000);
-
 
     }
 
@@ -194,7 +219,7 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
     }
     @Override
     public void OnBannerClick(int position) {
-        toast("点击了"+position);
+
     }
     //自定义的图片加载器
     private class MyLoader extends ImageLoader {
@@ -209,8 +234,6 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
                     .load((String) path)
                     .apply(options)
                     .into(imageView);
-
-
         }
     }
 
@@ -219,7 +242,6 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
     public void onScrimsStateChange(XCollapsingToolbarLayout layout, boolean shown) {
         if (shown) {
             mAddressView.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
-            mHintView.setBackgroundResource(R.drawable.home_search_bar_gray_bg);
             mHintView.setTextColor(ContextCompat.getColor(getActivity(), R.color.black60));
             ImmersionBar.with(this).titleBar(R.id.tb_home_title).statusBarDarkFont(true).init();
             mSearchView.setSupportImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.black60)));
@@ -227,7 +249,6 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
             ll_item.setVisibility(View.INVISIBLE);
         } else {
             mAddressView.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
-            mHintView.setBackgroundResource(R.drawable.home_search_bar_transparent_bg);
             mHintView.setTextColor(ContextCompat.getColor(getActivity(), R.color.white60));
             ImmersionBar.with(this).titleBar(R.id.tb_home_title).statusBarDarkFont(false).init();
             mSearchView.setSupportImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
@@ -236,18 +257,21 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
         }
     }
 
-    @OnClick({R.id.tv_home_address, R.id.tv_home_hint, R.id.iv_home_search,
-            })
+    @OnClick({R.id.tv_home_address, R.id.searchLinaer, R.id.moreImageView})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_home_address:
-                startActivity(new Intent(getContext(), SettingActivity.class));
+                startActivity(new Intent(getActivity(), SBWebActivity.class)
+                        .putExtra("url", "http://122.192.73.178:8082/jobleader/#/pages/city/city?a=无锡")
+                        .putExtra("title", "选择城市"));
                 break;
-            case R.id.tv_home_hint:
-                startActivity(new Intent(getContext(), AuthenticationActivity.class));
+            case R.id.searchLinaer:
+                startActivity(new Intent(getContext(), SearchActivity.class));
                 break;
-            case R.id.iv_home_search:
-                startActivity(new Intent(getContext(), AboutmeActivity.class));
+            case R.id.moreImageView:
+                startActivity(new Intent(getActivity(), SBWebActivity.class)
+                        .putExtra("url", "http://122.192.73.178:8082/jobleader/#/pages/more/more")
+                        .putExtra("title", "更多"));
                 break;
         }
     }

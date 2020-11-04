@@ -1,14 +1,8 @@
 package com.boc.jobleader.module.root;
 
-import com.boc.jobleader.BuildConfig;
 import com.boc.jobleader.R;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +13,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.boc.jobleader.base.BaseActivity;
 import com.boc.jobleader.module.job.JobFragment;
-import com.boc.jobleader.module.workspace.WorkspaceFragment;
 import com.boc.jobleader.module.home.HomeFragment;
 import com.boc.jobleader.module.message.MessageFragment;
 import com.boc.jobleader.module.mine.MineFragment;
+import com.boc.jobleader.module.workspace.root.WorkspaceFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
 import butterknife.BindView;
