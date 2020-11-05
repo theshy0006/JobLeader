@@ -83,19 +83,22 @@ public class WorkspaceFragment extends BaseFragment implements OnBannerListener 
                     }
                 });
 
-        initFruits(); // 初始化水果数据
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new WorkSpaceAdapter(fruitList);
         recyclerView.setAdapter(adapter);
+        initFruits();
 
         adapter.setItemCilck(new WorkSpaceAdapter.Cilck() {
             @Override
             public void onSetCilck(View v, int p) {
 
-                startActivity(new Intent(getActivity(), SBWebActivity.class)
-                        .putExtra("url", urlStr)
-                        .putExtra("title", "添加模块"));
+                WorkSpaceHomeItem grape = fruitList.get(p);
+                if (grape.getItemName().equals("更多")) {
+                    startActivity(new Intent(getActivity(), SBWebActivity.class)
+                            .putExtra("url", urlStr)
+                            .putExtra("title", "添加模块"));
+                }
             }
         });
 
@@ -103,9 +106,23 @@ public class WorkspaceFragment extends BaseFragment implements OnBannerListener 
 
     private void initFruits() {
         fruitList.clear();
-        WorkSpaceHomeItem grape = new WorkSpaceHomeItem("更多", R.mipmap.icon_shortcut_18_1,
-                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
-        fruitList.add(grape);
+        SharedPreferences settings = getActivity().getSharedPreferences("UserInfo", 0);
+        String saveworkspace = settings.getString("saveworkspace", "").toString();
+        if (saveworkspace.length() == 0) {
+            WorkSpaceHomeItem grape = new WorkSpaceHomeItem("更多", R.mipmap.icon_shortcut_18_1,
+                    "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
+            fruitList.add(grape);
+            urlStr = "http://122.192.73.178:8082/jobleader/#/pages/addModule/addModule?";
+            adapter.notifyDataSetChanged();
+        } else {
+            String[] spaceItems = saveworkspace.split("\\+");
+            reloadFruits(spaceItems);
+            urlStr = "http://122.192.73.178:8082/jobleader/#/pages/addModule/addModule?";
+            for( String str : spaceItems){//进行遍历
+                urlStr = urlStr + str + "=" + str + "&";
+            }
+            urlStr = urlStr.substring(0,urlStr.length()-1);
+        }
     }
 
     private void reloadFruits(String[] spaceItems) {
@@ -175,21 +192,35 @@ public class WorkspaceFragment extends BaseFragment implements OnBannerListener 
         ImmersionBar.with(this).titleBar(R.id.commonTitleBar).statusBarDarkFont(true).init();
 
         SharedPreferences settings = getActivity().getSharedPreferences("UserInfo", 0);
-        String saveworkspace = settings.getString("saveworkspace", "").toString();
+        Boolean needupdateWorkspace =  settings.getBoolean("needupdateWorkspace", false);
 
-        if (saveworkspace.length() == 0) {
-            initFruits();
-            urlStr = "http://122.192.73.178:8082/jobleader/#/pages/addModule/addModule?";
+        if (needupdateWorkspace) {
+            fruitList.clear();
 
-        } else {
-            String[] spaceItems = saveworkspace.split("\\+");
-            reloadFruits(spaceItems);
-            urlStr = "http://122.192.73.178:8082/jobleader/#/pages/addModule/addModule?";
-            for( String str : spaceItems){//进行遍历
-                urlStr = urlStr + str + "=" + str + "&";
+
+            String saveworkspace = settings.getString("saveworkspace", "").toString();
+            if (saveworkspace.length() == 0) {
+                WorkSpaceHomeItem grape = new WorkSpaceHomeItem("更多", R.mipmap.icon_shortcut_18_1,
+                        "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
+                fruitList.add(grape);
+                urlStr = "http://122.192.73.178:8082/jobleader/#/pages/addModule/addModule?";
+                adapter.notifyDataSetChanged();
+            } else {
+                String[] spaceItems = saveworkspace.split("\\+");
+                reloadFruits(spaceItems);
+                urlStr = "http://122.192.73.178:8082/jobleader/#/pages/addModule/addModule?";
+                for( String str : spaceItems){//进行遍历
+                    urlStr = urlStr + str + "=" + str + "&";
+                }
+                urlStr = urlStr.substring(0,urlStr.length()-1);
             }
-            urlStr = urlStr.substring(0,urlStr.length()-1);
+
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("needupdateWorkspace", false);
+            editor.commit();
         }
+
+
     }
 
     private void setBanner() {

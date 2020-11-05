@@ -32,6 +32,7 @@ import com.boc.jobleader.module.mine.aboutme.AboutmeActivity;
 import com.boc.jobleader.module.mine.authentication.AuthenticationActivity;
 import com.boc.jobleader.module.mine.set.SettingActivity;
 import com.boc.jobleader.module.sbweb.SBWebActivity;
+import com.boc.jobleader.module.workspace.root.WorkSpaceHomeItem;
 import com.boc.jobleader.widget.TextSwitchView;
 import com.boc.jobleader.widget.XCollapsingToolbarLayout;
 import com.bumptech.glide.Glide;
@@ -141,7 +142,7 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
     private ArrayList list_title;
     private List<BannerModel> dataSource;
     private Map<String, Integer> serviceDic = new HashMap<String, Integer>();
-
+    private String urlStr = "http://122.192.73.178:8082/jobleader/#/pages/editColumn/editColumn?求职列表=求职列表&招聘资讯=招聘资讯";
     private int curStr;
 
     private BaseFragmentAdapter<BaseFragment> mPagerAdapter;
@@ -219,11 +220,7 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
     @Override
     protected void initView() {
         super.initView();
-        mPagerAdapter = new BaseFragmentAdapter<>(this);
-        mPagerAdapter.addFragment(JobListFragment.newInstance(), "职位列表");
-        mPagerAdapter.addFragment(InviteNewsFragment.newInstance(), "招聘资讯");
-        mViewPager.setAdapter(mPagerAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
+
         //设置渐变监听
         mCollapsingToolbarLayout.setOnScrimsListener(this);
         initImmersionBar();
@@ -234,6 +231,16 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
                 "内地明年大学毕业生数量将创新高"};
         textSwitcher1.setResources(autoRes);
         textSwitcher1.setTextStillTime(3000);
+
+        SharedPreferences settings = getActivity().getSharedPreferences("UserInfo", 0);
+        String saveItem = settings.getString("saveItem", "求职列表+招聘资讯").toString();
+        String[] spaceItems = saveItem.split("\\+");
+        reloadFruits(spaceItems);
+        urlStr = "http://122.192.73.178:8082/jobleader/#/pages/editColumn/editColumn?";
+        for( String str : spaceItems){//进行遍历
+            urlStr = urlStr + str + "=" + str + "&";
+        }
+        urlStr = urlStr.substring(0,urlStr.length()-1);
 
     }
 
@@ -354,39 +361,45 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
                 break;
             case R.id.itemSelect:
                 // 设置服务类目
-
-                String itemOne =  settings.getString("itemOne", "求职列表").toString();
-                String itemTwo =  settings.getString("itemTwo", "招聘资讯").toString();
-                String itemThree =  settings.getString("itemThree", "").toString();
-                String itemFour =  settings.getString("itemFour", "").toString();
-                String itemFive =  settings.getString("itemFive", "").toString();
-
-                if( itemFive.length() != 0 && itemFour.length() != 0 && itemThree.length() != 0) {
-                    String urlString1 = String.format("http://122.192.73.178:8082/jobleader/#/pages/editColumn/editColumn?a=%s&b=%s&c=%s&d=%s&e=%s", itemOne,itemTwo,itemThree,itemFour,itemFive);
-                    startActivity(new Intent(getActivity(), SBWebActivity.class)
-                            .putExtra("url", urlString1)
-                            .putExtra("title", "栏目编辑"));
-                } else if(itemFour.length() != 0 && itemThree.length() != 0) {
-                    String urlString2 = String.format("http://122.192.73.178:8082/jobleader/#/pages/editColumn/editColumn?a=%s&b=%s&c=%s&d=%s", itemOne,itemTwo,itemThree,itemFour);
-                    startActivity(new Intent(getActivity(), SBWebActivity.class)
-                            .putExtra("url", urlString2)
-                            .putExtra("title", "栏目编辑"));
-                } else if(itemThree.length() != 0) {
-                    String urlString3 = String.format("http://122.192.73.178:8082/jobleader/#/pages/editColumn/editColumn?a=%s&b=%s&c=%s", itemOne,itemTwo,itemThree);
-                    startActivity(new Intent(getActivity(), SBWebActivity.class)
-                            .putExtra("url", urlString3)
-                            .putExtra("title", "栏目编辑"));
-                } else {
-                    String urlString4 = String.format("http://122.192.73.178:8082/jobleader/#/pages/editColumn/editColumn?a=%s&b=%s", itemOne,itemTwo);
-                    startActivity(new Intent(getActivity(), SBWebActivity.class)
-                            .putExtra("url", urlString4)
-                            .putExtra("title", "栏目编辑"));
-                }
+                startActivity(new Intent(getActivity(), SBWebActivity.class)
+                        .putExtra("url", urlStr)
+                        .putExtra("title", "栏目编辑"));
 
                 break;
 
         }
     }
+
+    private void reloadFruits(String[] spaceItems) {
+        mPagerAdapter = new BaseFragmentAdapter<>(this);
+        ArrayList<String> array = new ArrayList<String>();
+        for(int i=0;i< spaceItems.length; i++)
+        {
+            array.add(spaceItems[i]);
+        }
+
+        if (array.contains("求职列表")) {
+            mPagerAdapter.addFragment(JobListFragment.newInstance(), "求职列表");
+        }
+        if (array.contains("招聘资讯")) {
+            mPagerAdapter.addFragment(InviteNewsFragment.newInstance(), "招聘资讯");
+        }
+        if (array.contains("评估资讯")) {
+            mPagerAdapter.addFragment(AssessNewsFragment.newInstance(), "评估资讯");
+        }
+        if (array.contains("人才列表")) {
+            mPagerAdapter.addFragment(TalentsListFragment.newInstance(), "人才列表");
+        }
+        if (array.contains("求职资讯")) {
+            mPagerAdapter.addFragment(ApplyNewsFragment.newInstance(), "求职资讯");
+        }
+
+        mPagerAdapter.notifyDataSetChanged();
+        mViewPager.setAdapter(mPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+
+    }
+
 
     @Override
     public void onResume() {
@@ -399,6 +412,27 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
         // 设置城市
         String currentCity =  settings.getString("currentCity", "无锡").toString();
         mAddressView.setText(currentCity);
+
+        Boolean needupdateItem =  settings.getBoolean("needupdateItem", false);
+
+        if (needupdateItem) {
+            // 检测item是否需要更新
+
+            String saveItem = settings.getString("saveItem", "求职列表+招聘资讯").toString();
+                String[] spaceItems = saveItem.split("\\+");
+                reloadFruits(spaceItems);
+                urlStr = "http://122.192.73.178:8082/jobleader/#/pages/editColumn/editColumn?";
+                for( String str : spaceItems){//进行遍历
+                    urlStr = urlStr + str + "=" + str + "&";
+                }
+                urlStr = urlStr.substring(0,urlStr.length()-1);
+
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("needupdateItem", false);
+            editor.commit();
+        }
+
+
         // 设置服务类目
         String serviceOne =  settings.getString("serviceOne", "校招").toString();
         String serviceTwo =  settings.getString("serviceTwo", "社招").toString();
@@ -415,12 +449,6 @@ public class HomeFragment extends BaseFragment implements XCollapsingToolbarLayo
         serviceOneText.setText(serviceOne);
         serviceTwoText.setText(serviceTwo);
         serviceThreeText.setText(serviceThree);
-
-        String itemOne =  settings.getString("itemOne", "求职列表").toString();
-        String itemTwo =  settings.getString("itemTwo", "招聘资讯").toString();
-        String itemThree =  settings.getString("itemThree", "").toString();
-        String itemFour =  settings.getString("itemFour", "").toString();
-        String itemFive =  settings.getString("itemFive", "").toString();
 
     }
 }

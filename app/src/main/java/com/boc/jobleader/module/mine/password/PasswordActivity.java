@@ -116,6 +116,8 @@ public class PasswordActivity extends BaseActivity {
                     return;
                 }
 
+                hideSoftKeyboard();
+
                 // 修改密码
                 showDialog();
                 EasyHttp.post(this)

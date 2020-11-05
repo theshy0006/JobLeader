@@ -14,6 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.boc.jobleader.R;
+import com.boc.jobleader.action.HandlerAction;
+import com.boc.jobleader.base.BaseDialog;
+import com.boc.jobleader.custom.WaitDialog;
 import com.boc.jobleader.module.login.LoginActivity;
 import com.boc.jobleader.wechat.Constants;
 import com.boc.jobleader.wechat.NetworkUtil;
@@ -38,7 +41,7 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 
-public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
+public class WXEntryActivity extends Activity implements IWXAPIEventHandler, HandlerAction {
 
     private static String TAG = "MicroMsg.WXEntryActivity";
 
@@ -90,10 +93,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
                         scope = json.getString("scope");
 
                         Constants.openId = openId;
-
-
-                        WXEntryActivity activity = (WXEntryActivity) wxEntryActivityWeakReference.get();
-                        Intent intent = new Intent(activity, LoginActivity.class);
+                        Intent intent = new Intent(wxEntryActivityWeakReference.get(), LoginActivity.class);
                         wxEntryActivityWeakReference.get().startActivity(intent);
                     } catch (JSONException e) {
 
@@ -140,15 +140,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
                             "appid=%s&secret=%s&code=%s&grant_type=authorization_code", Constants.APP_ID,
                     Constants.APP_SECRECT, code), NetworkUtil.GET_TOKEN);
         }
-
-
-
-
-
-
-
-
-
         finish();
     }
 }

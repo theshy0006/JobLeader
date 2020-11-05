@@ -101,6 +101,7 @@ public class SBWebActivity extends BaseActivity {
         settings.setLoadWithOverviewMode(true);
         settings.setSupportZoom(true);
 
+        // 首页城市选择回调
         webView.registerHandler("saveCity", new BridgeHandler() {
             @Override
             public void handler(String data, CallBackFunction function) {
@@ -112,7 +113,7 @@ public class SBWebActivity extends BaseActivity {
                 finish();
             }
         });
-
+        // 首页服务栏目回调
         webView.registerHandler("saveService", new BridgeHandler() {
             @Override
             public void handler(String data, CallBackFunction function) {
@@ -126,49 +127,27 @@ public class SBWebActivity extends BaseActivity {
                     editor.putString("serviceOne", service[0]);
                     editor.putString("serviceTwo", service[1]);
                     editor.putString("serviceThree", service[2]);
+                    editor.putBoolean("needupdateService", true);
                     editor.commit();
                 }
                 finish();
             }
         });
-
+        // 首页选项回调
         webView.registerHandler("saveItem", new BridgeHandler() {
             @Override
             public void handler(String data, CallBackFunction function) {
                 System.out.println(data);
                 SharedPreferences settings = getSharedPreferences("UserInfo", 0);
                 SharedPreferences.Editor editor = settings.edit();
-
-                String[] item = data.split("\\+");
-
-                if(item.length == 2) {
-                    editor.putString("itemOne", item[0]);
-                    editor.putString("itemTwo", item[1]);
-                    editor.commit();
-                } else if(item.length == 3) {
-                    editor.putString("itemOne", item[0]);
-                    editor.putString("itemTwo", item[1]);
-                    editor.putString("itemThree", item[2]);
-                    editor.commit();
-                } else if(item.length == 4) {
-                    editor.putString("itemOne", item[0]);
-                    editor.putString("itemTwo", item[1]);
-                    editor.putString("itemThree", item[2]);
-                    editor.putString("itemFour", item[3]);
-                    editor.commit();
-                } else {
-                    editor.putString("itemOne", item[0]);
-                    editor.putString("itemTwo", item[1]);
-                    editor.putString("itemThree", item[2]);
-                    editor.putString("itemFour", item[3]);
-                    editor.putString("itemFive", item[4]);
-                    editor.commit();
-                }
-
+                editor.putString("saveItem", data);
+                editor.putBoolean("needupdateItem", true);
+                editor.commit();
                 finish();
             }
         });
 
+        // 工作台回调
         webView.registerHandler("saveworkspace", new BridgeHandler() {
             @Override
             public void handler(String data, CallBackFunction function) {
@@ -176,6 +155,7 @@ public class SBWebActivity extends BaseActivity {
                 SharedPreferences settings = getSharedPreferences("UserInfo", 0);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("saveworkspace", data);
+                editor.putBoolean("needupdateWorkspace", true);
                 editor.commit();
                 finish();
             }

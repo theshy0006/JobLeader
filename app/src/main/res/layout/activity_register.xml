@@ -172,7 +172,7 @@
                 android:background="@color/white"
                 android:drawableStart="@mipmap/password"
                 android:drawablePadding="15dp"
-                android:hint="请输入密码"
+                android:hint="6-16位数字或者字母密码"
                 android:maxLength="@integer/password_length"
                 android:paddingHorizontal="20dp"
                 android:singleLine="true"

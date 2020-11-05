@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseFragmentAdapter<F extends BaseFragment> extends FragmentPagerAdapter {
+public class BaseFragmentAdapter<F extends BaseFragment> extends FragmentStatePagerAdapter {
 
     /** Fragment 集合 */
     private final List<F> mFragmentSet = new ArrayList<>();
@@ -125,5 +127,10 @@ public class BaseFragmentAdapter<F extends BaseFragment> extends FragmentPagerAd
         } else {
             mViewPager.setOffscreenPageLimit(1);
         }
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return PagerAdapter.POSITION_NONE;
     }
 }

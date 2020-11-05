@@ -160,6 +160,11 @@ public class RegisterActivity extends BaseActivity {
                     toast(R.string.common_password_input_error);
                     return;
                 }
+
+                if (passwordEditText.getText().toString().length() < 6) {
+                    toast("密码长度6位以上");
+                    return;
+                }
                 showDialog();
                 // 提交注册
                 EasyHttp.post(this)

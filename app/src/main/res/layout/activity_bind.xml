@@ -36,8 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:bar_leftText="绑定微信"
-        app:bar_rightText="未绑定"
-        app:bar_rightIcon="@mipmap/icon_arrow_right" />
+        android:background="@color/white"
+        app:bar_rightText="未绑定" />
 
 
 </LinearLayout>

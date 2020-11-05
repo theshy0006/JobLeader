@@ -146,6 +146,8 @@ public class CompanyAuthActivity extends BaseActivity {
         if(name.length() == 0) {
             return;
         }
+        MyApplication application = ActivityStackManager.getInstance().getApplication();
+        application.changeAuthServer(application);
         // 查询认证信息
         EasyHttp.post(this)
                 .api(new FindCompanyApi()

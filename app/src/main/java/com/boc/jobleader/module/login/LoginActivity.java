@@ -422,6 +422,7 @@ public class LoginActivity extends BaseActivity {
                         public void onFail(Exception e) {
                             super.onFail(e);
                             hideDialog();
+                            toast(e.getMessage().toString());
                         }
                     });
 
@@ -439,6 +440,8 @@ public class LoginActivity extends BaseActivity {
                     Constants.openId = "";
                 }
             });
+        } else {
+            toast(e.getMessage().toString());
         }
     }
 

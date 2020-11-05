@@ -127,6 +127,11 @@ public class ForgetActivity extends BaseActivity {
                     return;
                 }
 
+                if (passwordEditText.getText().toString().length() < 6) {
+                    toast("请输入6位以上密码");
+                    return;
+                }
+
                 // 提交注册
                 showDialog();
                 EasyHttp.post(this)
