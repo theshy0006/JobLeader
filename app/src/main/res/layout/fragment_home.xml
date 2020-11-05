@@ -61,11 +61,12 @@
                         android:textSize="15sp" />
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/downView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
-                        app:srcCompat="@mipmap/icon_arrow_down_2"
                         android:gravity="center"
+                        app:srcCompat="@mipmap/icon_arrow_down_2"
                         app:tint="@color/white" />
 
                     <LinearLayout
@@ -183,6 +184,7 @@
                         android:background="@color/white">
 
                         <ImageView
+                            android:id="@+id/serviceOneImage"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -191,6 +193,7 @@
                             app:srcCompat="@mipmap/icon_xiaozhao" />
 
                         <TextView
+                            android:id="@+id/serviceOneText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
@@ -210,6 +213,7 @@
                         android:background="@color/white">
 
                         <ImageView
+                            android:id="@+id/serviceTwoImage"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -218,6 +222,7 @@
                             app:srcCompat="@mipmap/icon_shezhao" />
 
                         <TextView
+                            android:id="@+id/serviceTwoText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
@@ -237,6 +242,7 @@
                         android:background="@color/white">
 
                         <ImageView
+                            android:id="@+id/serviceThreeImage"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -245,6 +251,7 @@
                             app:srcCompat="@mipmap/icon_job_resume_editor" />
 
                         <TextView
+                            android:id="@+id/serviceThreeText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
@@ -293,16 +300,38 @@
 
         </com.boc.jobleader.widget.XCollapsingToolbarLayout>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tl_home_tab"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/colorAccent"
-            app:tabIndicatorFullWidth="false"
-            app:tabMode="fixed"
-            app:tabRippleColor="@color/transparent"
-            app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextColor="@color/black25" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_home_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="9"
+                app:tabIndicatorColor="@color/colorAccent"
+
+                app:tabIndicatorFullWidth="false"
+                app:tabMode="scrollable"
+                app:tabRippleColor="@color/transparent"
+                app:tabSelectedTextColor="#333333"
+                app:tabTextColor="@color/black25" />
+
+            <ImageView
+                android:id="@+id/itemSelect"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_home_drawer">
+
+            </ImageView>
+
+        </LinearLayout>
+
 
     </com.google.android.material.appbar.AppBarLayout>
 

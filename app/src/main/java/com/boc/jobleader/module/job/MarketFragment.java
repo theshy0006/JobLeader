@@ -11,6 +11,7 @@ import com.boc.jobleader.base.BaseAdapter;
 import com.boc.jobleader.base.BaseFragment;
 import com.boc.jobleader.custom.StatusAdapter;
 import com.boc.jobleader.custom.WrapRecyclerView;
+import com.boc.jobleader.module.home.HomeAdapter;
 import com.boc.jobleader.module.message.ApplyFragment;
 import com.hjq.toast.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -22,5 +23,73 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MarketFragment {
+public class MarketFragment extends BaseFragment implements OnRefreshLoadMoreListener,
+        BaseAdapter.OnItemClickListener, HandlerAction {
+
+    public static com.boc.jobleader.module.job.MarketFragment newInstance() {
+        return new com.boc.jobleader.module.job.MarketFragment();
+    }
+
+    @BindView(R.id.rl_status_refresh)
+    SmartRefreshLayout mRefreshLayout;
+    @BindView(R.id.rv_status_list)
+    WrapRecyclerView mRecyclerView;
+
+    /**
+     * 模拟数据
+     */
+    private List<String> analogData() {
+        List<String> data = new ArrayList<>();
+        for (int i = mAdapter.getItemCount(); i < mAdapter.getItemCount() + 20; i++) {
+            data.add("我是第" + i + "条目");
+        }
+        return data;
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_market;
+    }
+
+    private MarketAdapter mAdapter;
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        // 不使用图标默认变色
+
+        mAdapter = new MarketAdapter(getActivity());
+        mAdapter.setOnItemClickListener(this);
+        mAdapter.setData(analogData());
+        mRecyclerView.setAdapter(mAdapter);
+
+        mRefreshLayout.setOnRefreshLoadMoreListener(this);
+    }
+
+    @Override
+    public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
+        ToastUtils.show(mAdapter.getItem(position));
+    }
+
+    @Override
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        postDelayed(() -> {
+            mAdapter.addData(analogData());
+            mRefreshLayout.finishLoadMore();
+        }, 1000);
+    }
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        postDelayed(() -> {
+            mAdapter.clearData();
+            mAdapter.setData(analogData());
+            mRefreshLayout.finishRefresh();
+        }, 1000);
+    }
 }

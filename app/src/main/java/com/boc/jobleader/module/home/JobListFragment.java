@@ -1,18 +1,15 @@
-package com.boc.jobleader.module.message;
+package com.boc.jobleader.module.home;
 
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.boc.jobleader.R;
 import com.boc.jobleader.action.HandlerAction;
 import com.boc.jobleader.base.BaseAdapter;
 import com.boc.jobleader.base.BaseFragment;
-import com.boc.jobleader.custom.StatusAdapter;
 import com.boc.jobleader.custom.WrapRecyclerView;
-import com.boc.jobleader.module.home.HomeAdapter;
 import com.hjq.toast.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -23,20 +20,12 @@ import java.util.List;
 
 import butterknife.BindView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ApplyFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ApplyFragment extends BaseFragment implements OnRefreshLoadMoreListener,
+public class JobListFragment extends BaseFragment implements OnRefreshLoadMoreListener,
         BaseAdapter.OnItemClickListener, HandlerAction {
 
-    public static ApplyFragment newInstance() {
-        return new ApplyFragment();
+    public static com.boc.jobleader.module.home.JobListFragment newInstance() {
+        return new com.boc.jobleader.module.home.JobListFragment();
     }
-
-
-    private StatusAdapter mAdapter;
 
     @BindView(R.id.rl_status_refresh)
     SmartRefreshLayout mRefreshLayout;
@@ -48,13 +37,18 @@ public class ApplyFragment extends BaseFragment implements OnRefreshLoadMoreList
      */
     private List<String> analogData() {
         List<String> data = new ArrayList<>();
+        for (int i = mAdapter.getItemCount(); i < mAdapter.getItemCount() + 20; i++) {
+            data.add("我是第" + i + "条目");
+        }
         return data;
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_apply;
+        return R.layout.fragment_joblist;
     }
+
+    private HomeAdapter mAdapter;
 
     @Override
     protected void initData() {
@@ -66,13 +60,10 @@ public class ApplyFragment extends BaseFragment implements OnRefreshLoadMoreList
         super.initView();
         // 不使用图标默认变色
 
-        mAdapter = new StatusAdapter(getActivity());
+        mAdapter = new HomeAdapter(getActivity());
         mAdapter.setOnItemClickListener(this);
         mAdapter.setData(analogData());
         mRecyclerView.setAdapter(mAdapter);
-
-        View footerView = mRecyclerView.addFooterView(R.layout.apply_item);
-        footerView.setOnClickListener(v -> ToastUtils.show("点击了尾部"));
 
         mRefreshLayout.setOnRefreshLoadMoreListener(this);
     }

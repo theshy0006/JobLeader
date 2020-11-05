@@ -1,6 +1,9 @@
 package com.boc.jobleader.module.workspace.root;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -16,6 +19,7 @@ import com.boc.jobleader.http.model.HttpData;
 import com.boc.jobleader.http.request.ServiceHallHomeApi;
 import com.boc.jobleader.http.response.BannerModel;
 import com.boc.jobleader.http.response.ServiceHallHomeBean;
+import com.boc.jobleader.module.sbweb.SBWebActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
@@ -30,6 +34,7 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -46,11 +51,13 @@ public class WorkspaceFragment extends BaseFragment implements OnBannerListener 
     @Nullable
     @BindView(R.id.rv_main)
     RecyclerView recyclerView;
-
+    WorkSpaceAdapter adapter;
     private ArrayList list_path;
     private ArrayList list_title;
     private List<WorkSpaceHomeItem> fruitList = new ArrayList<>();
     private List<BannerModel> dataSource;
+
+    private String urlStr = "http://122.192.73.178:8082/jobleader/#/pages/addModule/addModule?";
 
     @Override
     protected int getLayoutId() {
@@ -79,30 +86,82 @@ public class WorkspaceFragment extends BaseFragment implements OnBannerListener 
         initFruits(); // 初始化水果数据
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(layoutManager);
-        WorkSpaceAdapter adapter = new WorkSpaceAdapter(fruitList);
+        adapter = new WorkSpaceAdapter(fruitList);
         recyclerView.setAdapter(adapter);
+
+        adapter.setItemCilck(new WorkSpaceAdapter.Cilck() {
+            @Override
+            public void onSetCilck(View v, int p) {
+
+                startActivity(new Intent(getActivity(), SBWebActivity.class)
+                        .putExtra("url", urlStr)
+                        .putExtra("title", "添加模块"));
+            }
+        });
 
     }
 
     private void initFruits() {
-        WorkSpaceHomeItem apple = new WorkSpaceHomeItem("求职", R.mipmap.icon_shortcut_1_1,
-                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
-        fruitList.add(apple);
-        WorkSpaceHomeItem banana = new WorkSpaceHomeItem("招聘", R.mipmap.icon_shortcut_2_1,
-                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
-        fruitList.add(banana);
-        WorkSpaceHomeItem orange = new WorkSpaceHomeItem("评估", R.mipmap.icon_shortcut_3_1,
-                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
-        fruitList.add(orange);
-        WorkSpaceHomeItem watermelon = new WorkSpaceHomeItem("推荐", R.mipmap.icon_shortcut_5,
-                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
-        fruitList.add(watermelon);
-        WorkSpaceHomeItem pear = new WorkSpaceHomeItem("实习", R.mipmap.icon_shortcut_4_1,
-                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
-        fruitList.add(pear);
+        fruitList.clear();
         WorkSpaceHomeItem grape = new WorkSpaceHomeItem("更多", R.mipmap.icon_shortcut_18_1,
                 "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
         fruitList.add(grape);
+    }
+
+    private void reloadFruits(String[] spaceItems) {
+        fruitList.clear();
+        WorkSpaceHomeItem apple = new WorkSpaceHomeItem("求职", R.mipmap.icon_shortcut_1_1,
+                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
+
+        WorkSpaceHomeItem banana = new WorkSpaceHomeItem("招聘", R.mipmap.icon_shortcut_2_1,
+                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
+
+        WorkSpaceHomeItem orange = new WorkSpaceHomeItem("评估", R.mipmap.icon_shortcut_3_1,
+                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
+
+        WorkSpaceHomeItem watermelon = new WorkSpaceHomeItem("推荐", R.mipmap.icon_shortcut_5,
+                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
+
+        WorkSpaceHomeItem pear = new WorkSpaceHomeItem("实习中心", R.mipmap.icon_shortcut_4_1,
+                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
+        WorkSpaceHomeItem xiaozhao = new WorkSpaceHomeItem("校招", R.mipmap.icon_xiaozhao2,
+                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
+        WorkSpaceHomeItem shezhao = new WorkSpaceHomeItem("社招", R.mipmap.icon_shezhao2,
+                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
+        WorkSpaceHomeItem grape = new WorkSpaceHomeItem("更多", R.mipmap.icon_shortcut_18_1,
+                "将助您更好地了解我们，轻松申请职位。因此我们希望您能够浏览本页，更多地了解我们");
+
+
+        ArrayList<String> array = new ArrayList<String>();
+        for(int i=0;i< spaceItems.length; i++)
+        {
+            array.add(spaceItems[i]);
+        }
+
+        if (array.contains("求职")) {
+            fruitList.add(apple);
+        }
+        if (array.contains("招聘")) {
+            fruitList.add(banana);
+        }
+        if (array.contains("评估")) {
+            fruitList.add(orange);
+        }
+        if (array.contains("推荐")) {
+            fruitList.add(watermelon);
+        }
+        if (array.contains("实习中心")) {
+            fruitList.add(pear);
+        }
+        if (array.contains("校招")) {
+            fruitList.add(xiaozhao);
+        }
+        if (array.contains("社招")) {
+            fruitList.add(shezhao);
+        }
+        fruitList.add(grape);
+        adapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -114,6 +173,23 @@ public class WorkspaceFragment extends BaseFragment implements OnBannerListener 
     public void onResume() {
         super.onResume();
         ImmersionBar.with(this).titleBar(R.id.commonTitleBar).statusBarDarkFont(true).init();
+
+        SharedPreferences settings = getActivity().getSharedPreferences("UserInfo", 0);
+        String saveworkspace = settings.getString("saveworkspace", "").toString();
+
+        if (saveworkspace.length() == 0) {
+            initFruits();
+            urlStr = "http://122.192.73.178:8082/jobleader/#/pages/addModule/addModule?";
+
+        } else {
+            String[] spaceItems = saveworkspace.split("\\+");
+            reloadFruits(spaceItems);
+            urlStr = "http://122.192.73.178:8082/jobleader/#/pages/addModule/addModule?";
+            for( String str : spaceItems){//进行遍历
+                urlStr = urlStr + str + "=" + str + "&";
+            }
+            urlStr = urlStr.substring(0,urlStr.length()-1);
+        }
     }
 
     private void setBanner() {
@@ -171,5 +247,6 @@ public class WorkspaceFragment extends BaseFragment implements OnBannerListener 
 
         }
     }
+
 }
 

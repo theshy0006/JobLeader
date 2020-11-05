@@ -1,5 +1,6 @@
 package com.boc.jobleader.module.sbweb;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.boc.jobleader.base.BaseActivity;
@@ -100,13 +101,86 @@ public class SBWebActivity extends BaseActivity {
         settings.setLoadWithOverviewMode(true);
         settings.setSupportZoom(true);
 
+        webView.registerHandler("saveCity", new BridgeHandler() {
+            @Override
+            public void handler(String data, CallBackFunction function) {
+                System.out.println(data);
+                SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("currentCity", data);
+                editor.commit();
+                finish();
+            }
+        });
+
         webView.registerHandler("saveService", new BridgeHandler() {
             @Override
             public void handler(String data, CallBackFunction function) {
                 System.out.println(data);
+                SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+                SharedPreferences.Editor editor = settings.edit();
+
+                String[] service = data.split("\\+");
+
+                if(service.length == 3) {
+                    editor.putString("serviceOne", service[0]);
+                    editor.putString("serviceTwo", service[1]);
+                    editor.putString("serviceThree", service[2]);
+                    editor.commit();
+                }
                 finish();
             }
         });
+
+        webView.registerHandler("saveItem", new BridgeHandler() {
+            @Override
+            public void handler(String data, CallBackFunction function) {
+                System.out.println(data);
+                SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+                SharedPreferences.Editor editor = settings.edit();
+
+                String[] item = data.split("\\+");
+
+                if(item.length == 2) {
+                    editor.putString("itemOne", item[0]);
+                    editor.putString("itemTwo", item[1]);
+                    editor.commit();
+                } else if(item.length == 3) {
+                    editor.putString("itemOne", item[0]);
+                    editor.putString("itemTwo", item[1]);
+                    editor.putString("itemThree", item[2]);
+                    editor.commit();
+                } else if(item.length == 4) {
+                    editor.putString("itemOne", item[0]);
+                    editor.putString("itemTwo", item[1]);
+                    editor.putString("itemThree", item[2]);
+                    editor.putString("itemFour", item[3]);
+                    editor.commit();
+                } else {
+                    editor.putString("itemOne", item[0]);
+                    editor.putString("itemTwo", item[1]);
+                    editor.putString("itemThree", item[2]);
+                    editor.putString("itemFour", item[3]);
+                    editor.putString("itemFive", item[4]);
+                    editor.commit();
+                }
+
+                finish();
+            }
+        });
+
+        webView.registerHandler("saveworkspace", new BridgeHandler() {
+            @Override
+            public void handler(String data, CallBackFunction function) {
+                System.out.println(data);
+                SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("saveworkspace", data);
+                editor.commit();
+                finish();
+            }
+        });
+
 
         webView.loadUrl(url);
     }

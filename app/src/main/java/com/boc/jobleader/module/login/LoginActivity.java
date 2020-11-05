@@ -379,6 +379,7 @@ public class LoginActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if (Constants.openId != "") {
+            showDialog();
             EasyHttp.post(this)
                     .api(new ThirdLoginApi()
                             .setProviderId("wechat")
@@ -387,7 +388,7 @@ public class LoginActivity extends BaseActivity {
 
                         @Override
                         public void onSucceed(HttpData<LoginBean> data) {
-
+                            hideDialog();
                             if (data.getCode() == 500) {
                                 // 未绑定
                             } else {
@@ -415,6 +416,12 @@ public class LoginActivity extends BaseActivity {
                                 // 销毁除了首页之外的界面
                                 ActivityStackManager.getInstance().finishAllActivities(MainActivity.class);
                             }
+                        }
+
+                        @Override
+                        public void onFail(Exception e) {
+                            super.onFail(e);
+                            hideDialog();
                         }
                     });
 

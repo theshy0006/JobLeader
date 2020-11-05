@@ -1,18 +1,22 @@
-package com.boc.jobleader.module.message;
+package com.boc.jobleader.module.job.notice;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.boc.jobleader.R;
 import com.boc.jobleader.action.HandlerAction;
+import com.boc.jobleader.base.BaseActivity;
 import com.boc.jobleader.base.BaseAdapter;
-import com.boc.jobleader.base.BaseFragment;
-import com.boc.jobleader.custom.StatusAdapter;
 import com.boc.jobleader.custom.WrapRecyclerView;
 import com.boc.jobleader.module.home.HomeAdapter;
+import com.gyf.immersionbar.ImmersionBar;
+import com.hjq.bar.OnTitleBarListener;
+import com.hjq.bar.TitleBar;
 import com.hjq.toast.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -23,58 +27,68 @@ import java.util.List;
 
 import butterknife.BindView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ApplyFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ApplyFragment extends BaseFragment implements OnRefreshLoadMoreListener,
+public class NoticeActivity extends BaseActivity implements OnRefreshLoadMoreListener,
         BaseAdapter.OnItemClickListener, HandlerAction {
 
-    public static ApplyFragment newInstance() {
-        return new ApplyFragment();
-    }
-
-
-    private StatusAdapter mAdapter;
+    @Nullable
+    @BindView(R.id.commonTitleBar)
+    TitleBar mTitleBar;
 
     @BindView(R.id.rl_status_refresh)
     SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.rv_status_list)
     WrapRecyclerView mRecyclerView;
 
+    private NoticeAdapter mAdapter;
+
     /**
      * 模拟数据
      */
     private List<String> analogData() {
         List<String> data = new ArrayList<>();
+        for (int i = mAdapter.getItemCount(); i < 3; i++) {
+            data.add("我是第" + i + "条目");
+        }
         return data;
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_apply;
+        return R.layout.activity_notice;
     }
 
     @Override
-    protected void initData() {
-
+    protected void initImmersionBar() {
+        super.initImmersionBar();
+        ImmersionBar.with(this).titleBar(R.id.commonTitleBar).statusBarDarkFont(true).init();
     }
 
     @Override
     protected void initView() {
         super.initView();
-        // 不使用图标默认变色
 
-        mAdapter = new StatusAdapter(getActivity());
+        mAdapter = new NoticeAdapter(this);
         mAdapter.setOnItemClickListener(this);
         mAdapter.setData(analogData());
         mRecyclerView.setAdapter(mAdapter);
 
-        View footerView = mRecyclerView.addFooterView(R.layout.apply_item);
-        footerView.setOnClickListener(v -> ToastUtils.show("点击了尾部"));
-
         mRefreshLayout.setOnRefreshLoadMoreListener(this);
+
+        mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
+
+            @Override
+            public void onLeftClick(View v) {
+                finish();
+            }
+
+            @Override
+            public void onTitleClick(View v) {
+            }
+
+            @Override
+            public void onRightClick(View v) {
+            }
+        });
     }
 
     @Override

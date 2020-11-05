@@ -52,6 +52,7 @@
     <string name="feedback">帮助反馈</string>
     <string name="aboutme">关于我们</string>
     <string name="workspace">工作台</string>
+    <string name="systemnotice">系统通知</string>
     <string name="set">设置</string>
 
     <string name="clearContent">清除缓存</string>

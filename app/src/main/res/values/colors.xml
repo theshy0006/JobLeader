@@ -102,6 +102,7 @@
     <color name="btn3">#FFF9F6</color>
     <color name="btn4">#FFEEEE</color>
     <color name="btn5">#F2F4F5</color>
-
+    <color name="btn6">#FFF9E6</color>
+    <color name="btn7">#EDF6FF</color>
 
 </resources>

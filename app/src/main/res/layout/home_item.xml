@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="166dp">
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="李先生·HR主管"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/headImageView"
+            app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+        <TextView
+            android:id="@+id/tagLabel2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_btn6"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="3dp"
+            android:text="本科"
+            android:textColor="#FFB701"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@+id/tagLabel1"
+            app:layout_constraintTop_toBottomOf="@+id/companyLabel" />
+
+        <TextView
+            android:id="@+id/nameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="15dp"
+            android:text="文案编辑"
+            android:textColor="#333333"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="20-25K"
+            android:textColor="#FF6D71"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/companyLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="8dp"
+            android:text="微软中国"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
+
+        <TextView
+            android:id="@+id/tagLabel1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_btn7"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="3dp"
+            android:text="应届生"
+            android:textColor="#3AA7FF"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/companyLabel" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="8dp"
+            android:text="不需要融资  |  10000人以上  |  计算机软件"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tagLabel2" />
+
+        <ImageView
+            android:id="@+id/headImageView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView23"
+            app:srcCompat="@mipmap/default_headimage3" />
+
+        <View
+            android:id="@+id/view10"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:background="#F4F5F6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="18dp"
+            android:text="无锡·华庄"
+            android:textColor="#CCCCCC"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/view10"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

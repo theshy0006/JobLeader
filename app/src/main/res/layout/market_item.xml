@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/default_headimage3" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="17dp"
+            android:text="赵先生"
+            android:textColor="#333333"
+            app:layout_constraintStart_toEndOf="@+id/imageView11"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:text="江苏 · 招聘专员"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView11"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="15dp"
+            android:text="我有甜甜的工作啦~昨天转正，不仅单休变双休了，老板还主动给我涨工资啦啦啦啦啦啦啦啦！ 开心"
+            android:textColor="#333333"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_btn2"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="4dp"
+            android:text="#想要甜甜的工作"
+            android:textColor="#3AA7FF"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="12dp"
+            android:drawableStart="@mipmap/icon_mine_14"
+            android:drawablePadding="5dp"
+            android:text="600"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:drawableStart="@mipmap/icon_mine_4"
+            android:drawablePadding="5dp"
+            android:text="我来回答"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/textView27"
+            app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView28"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView28"
+            app:srcCompat="@mipmap/icon_share" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="5dp"
+            android:text="2020-06-12 12:20"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+        <View
+            android:id="@+id/view11"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECECEC"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
